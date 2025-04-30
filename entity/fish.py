@@ -1,13 +1,13 @@
 import random
-    
+REPRODUCTION_TIME=8 #Temps de reproduction des poissons 
+
 class Fish: 
-    def __init__(self, reproduction_time :int, x :int, y :int):
-        self.reproduction_time = reproduction_time
-        self.chronon = 0 
+    def __init__(self,x :int, y :int):
+        self.chronon_fish = 0 
         self.x = x
         self.y = y
 
-    def move(self, grid):
+    def move(self, grid): 
         """
             Déplace l'entité vers une case voisine vide dans la grille. 
             Le mouvement est aléatoire parmi les directions possibles (haut, bas, gauche, droite) 
@@ -33,7 +33,7 @@ class Fish:
                 grid[new_y][new_x] = self
                 break
     
-    def reproduce(self): 
+    def reproduce(self):
         """
                 Vérifie si le poisson peut se reproduire en fonction de son temps de reproduction. 
                 Si le poisson a atteint son temps de reproduction, un nouvel objet Fish est créé 
@@ -43,11 +43,14 @@ class Fish:
                     Fish or None: Un nouvel objet Fish si le poisson peut se reproduire, 
                                 sinon None.
         """
-        if self.chronon >= self.reproduction_time:
-            self.reproduction_time = 0
-            return Fish(self.x, self.y, self.reproduction_time)
+        if self.chronon_fish >= REPRODUCTION_TIME:
+            self.chronon_fish = 0
+            return Fish(self.x, self.y)
         else :
             return None
         
-    def chronon_one_turn(self): 
-        self.chronon += 1
+    def chronon_fish_one_turn(self): 
+        """_summary_
+            Le poisson gagne un chronom 
+        """
+        self.chronon_fish += 1
