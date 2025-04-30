@@ -28,4 +28,3 @@ class Planet:
     
     def update(self)->None:
         self.chronon += 1
-        print(self.chronon)
