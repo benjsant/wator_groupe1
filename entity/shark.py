@@ -1,5 +1,7 @@
-
-class Shark:
+import emoji
+import random
+from fish import Fish
+class Shark(Fish):
     """
     Classe représentant les requins
     Valeurs fixes et communes à toutes les instances de Shark 
@@ -17,13 +19,49 @@ class Shark:
     shark_reproduction_time: int = MAX_SHARK_REPRODUCTION_TIME
     shark_energy: int = 10
     alive: bool = True
-    img: str = "A shark representation"
+    img: str = "🦈"
     
     
-    def __init__(self):
-        pass
+    def __init__(self, x, y):
+        super().__init__(x, y)
+        
 
-    def move(self):
+    def move(self, grid) -> None:
+        '''
+            Fonction move:
+            On définit les 4 directions, et on les rend aléatoires.
+            On parcourt une fois les directions dans une boucle pour vérifier si il y a un poisson 
+            a proximité pour le faire passer en priorité et le manger.
+            Si il n'y a pas de poisson, on refait une boucle pour choisir une case aléatoire parmis les cases vides.
+        
+        '''
+
+        directions=[(0,1),(1,0),(0,-1),(-1,0)]
+        random.shuffle(directions)
+
+        for dx, dy in directions:
+            new_x = (self.position[0] + dx) % len(grid[0])
+            new_y = (self.position[1] + dy) % len(grid)
+            neighbor = grid[new_y][new_x]
+
+            if isinstance(neighbor, Fish):
+                grid[new_y, new_x] = None # pour supprimer le poisson
+                self.eat()
+                grid[self.position[1]][self.position[0]] = None
+                self.position = [new_x, new_y]
+                grid[new_y, new_x] = self
+                return
+        
+        for dx, dy in directions:
+            new_x = (self.position[0] + dx) % len(grid[0])
+            new_y = (self.position[1] + dy) % len(grid)
+
+            if grid[new_y][new_x] is None:
+                grid[self.position[1]][self.position[0]] = None
+                self.position = [new_x, new_y]
+                grid[new_y, new_x] = self
+                break
+
         self.shark_energy -= 1
         print("The shark moves.", self.shark_energy)
         if self.shark_energy == 0:
@@ -31,10 +69,23 @@ class Shark:
             print("Le requin est mort.", self.alive, self.shark_energy)
 
 
-    def reproduce(self):  
+
+
+    def eat(self) -> None:
+       '''
+            Fonction eat :
+            Lorsque le requin mange, on augmente son énergie
+       '''
+       self.shark_energy += 3
+       print("The shark eats.", self.shark_energy)
+
+
+
+
+    def reproduce(self) -> None:  
         """
-        Fonction gérant la reproduction des requins
-        Lorsque le timer tombe à 0 un nouveau requin naît, et le compteur est réinitialisé
+            Fonction gérant la reproduction des requins
+            Lorsque le timer tombe à 0 un nouveau requin naît, et le compteur est réinitialisé
 
         """        
         # A ADAPTER AVEC LES CHRONONS
@@ -48,7 +99,4 @@ class Shark:
         print("compteur reproduction : ", self.shark_reproduction_time)
 
 
-    def eat(self):
-       self.shark_energy += 3
-       print("The shark eats.", self.shark_energy)
-
+print("🦈")
