@@ -11,6 +11,8 @@ class Planet:
         self.height=height
         self.grid=self.init_grid()
         self.chronon=0
+        self.sharks = []
+        self.fishes = []
         
     def init_grid(self)->list:
         """_summary_
@@ -28,3 +30,40 @@ class Planet:
     
     def update(self)->None:
         self.chronon += 1
+
+
+    def new_fish(self, fish):
+        if not self.is_valid_position(x=self.width, y=self.height):
+            return None
+        if len(self.fishes) >= (self.width * self.height):
+            return None
+        self.fishes.append(fish)
+        self.grid[fish.x][fish.y] = "🐟" #fish.emoji_fish
+
+
+    def new_shark(self, shark):
+        if not self.is_valid_position(x=self.width, y=self.height):
+            return None
+        if len(self.sharks) >= (self.width * self.height):
+            return None
+        self.sharks.append(shark)
+        self.grid[shark.x][shark.y] = shark.img
+
+
+    def is_valid_position(self, x, y) -> bool:
+        """Fonction indiquant si la position indiquée est valide ou non
+
+        Args:
+            x (int): largeur de la grille
+            y (int): hauteur de la grille
+
+        Returns:
+            bool: True si position valide et libre, sinon False
+        """
+        if x >= self.width or y >= self.height:
+            return False
+        else:
+            if self.grid[x][y] == None:
+                return True
+            else:
+                return False
