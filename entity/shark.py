@@ -1,6 +1,6 @@
-import emoji
 import random
-from fish import Fish
+from entity.fish import Fish
+
 class Shark(Fish):
     """
     Classe représentant les requins
@@ -11,7 +11,7 @@ class Shark(Fish):
         - shark_reproduction_time : timer de reproduction des requins (à 0 -> nouveau requin)
         - shark_energy : energie des requins -> à 0 il meurt
         - alive : booléen indiquant si le requin est vivant ou non
-        - img : lien de la représentation graphique du requin
+        - img : représentation graphique du requin
 
     """    
 
@@ -48,6 +48,7 @@ class Shark(Fish):
                 grid[new_y, new_x] = None # pour supprimer le poisson
                 self.eat()
                 grid[self.position[1]][self.position[0]] = None
+                self.reproduce()
                 self.position = [new_x, new_y]
                 grid[new_y, new_x] = self
                 return
@@ -58,17 +59,14 @@ class Shark(Fish):
 
             if grid[new_y][new_x] is None:
                 grid[self.position[1]][self.position[0]] = None
+                self.reproduce()
                 self.position = [new_x, new_y]
                 grid[new_y, new_x] = self
                 break
 
         self.shark_energy -= 1
-        print("The shark moves.", self.shark_energy)
         if self.shark_energy == 0:
             self.alive = False
-            print("Le requin est mort.", self.alive, self.shark_energy)
-
-
 
 
     def eat(self) -> None:
@@ -77,26 +75,19 @@ class Shark(Fish):
             Lorsque le requin mange, on augmente son énergie
        '''
        self.shark_energy += 3
-       print("The shark eats.", self.shark_energy)
 
 
-
-
-    def reproduce(self) -> None:  
+    def reproduce(self) -> object:  
         """
             Fonction gérant la reproduction des requins
             Lorsque le timer tombe à 0 un nouveau requin naît, et le compteur est réinitialisé
 
         """        
-        # A ADAPTER AVEC LES CHRONONS
 
-        print("The shark reproduces.")
         self.shark_reproduction_time -= 1
-        if self.shark_reproduction_time == 0:
-          # création nouveau requin
-          self.shark_reproduction_time = self.MAX_SHARK_REPRODUCTION_TIME
+        if self.shark_reproduction_time == 0:    
+            self.shark_reproduction_time = self.MAX_SHARK_REPRODUCTION_TIME
+            return Shark(x = self.x, y = self.y)
         
-        print("compteur reproduction : ", self.shark_reproduction_time)
 
 
-print("🦈")
