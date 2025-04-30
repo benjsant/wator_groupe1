@@ -10,8 +10,9 @@ class Planet:
         self.width=width
         self.height=height
         self.grid=self.init_grid()
+        self.chronon=0
         
-    def init_grid(self):
+    def init_grid(self)->list:
         """_summary_
         fonction qui initialize le monde 2 dimension
 
@@ -19,11 +20,12 @@ class Planet:
             list: retourne une variable a 2 dimension pour acceder grid[x][y]
         """
         """"""
-        return [[col for col in range(self.height)]for row in range(self.width)]  
+        return [["" for col in range(self.height)]for row in range(self.width)]  
+        
                 
-    def display():
+    def display(self)->None:
         pass
     
-    def update():
-        pass
-    
+    def update(self)->None:
+        self.chronon += 1
+        print(self.chronon)
