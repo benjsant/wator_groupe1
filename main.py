@@ -1,5 +1,6 @@
 from interface.grid_view import GridView
 from interface.main_window import MainWindow
+from interface.history_window import HistoryWindow
 from entity.fish import Fish
 from entity.shark import Shark
 from entity.clown_fish import ClownFish
@@ -47,7 +48,7 @@ for _ in range(number_of_fishes):
         
 # test de Mainwindows
 app = QApplication(sys.argv)
-main = MainWindow(test_world,GridView,ClownFish,Shark)
+main = MainWindow(test_world,GridView,ClownFish,Shark,HistoryWindow)
 main.show()
 sys.exit(app.exec())
 main.update()

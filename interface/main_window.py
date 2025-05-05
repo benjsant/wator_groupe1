@@ -4,8 +4,7 @@ from PyQt5.QtWidgets import QMainWindow, QPushButton, QVBoxLayout, QWidget
 import sys
 from PyQt5 import QtCore
 from PyQt5.QtCore import QTimer, QTime
-from planet import Planet
-from history_window import HistoryWindow
+
 
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
@@ -13,14 +12,14 @@ from entity.shark import Shark
 from entity.clown_fish import ClownFish
 
 class MainWindow(QMainWindow):
-    def __init__(self,planet,GridView,Clownfish,Shark):
+    def __init__(self,planet,GridView,Clownfish,Shark,HistoryWindow):
         super().__init__()
         self.planet = planet
         #definition de la fenetre
         self.setWindowTitle("Wator")
         self.resize(1200, 800)
         self.isactive=True
-        
+        self.history_window=HistoryWindow
         # QTimer pour contrôler le cycle de simulation (Chronon)
         self.sim_timer =QTimer(self)
         self.sim_timer.setInterval(3000) #2 sec
@@ -130,7 +129,7 @@ class MainWindow(QMainWindow):
                 if(isinstance(cell,Shark)):
                     num_shark=num_shark+1
         self.chronon.setText(f'Chronon : {self.planet.chronon}')  # ou rafraîchir une vue
-	self.shark.setText(f'Shark : {num_shark}')
+        self.shark.setText(f'Shark : {num_shark}')
         self.clownfish.setText(f'Clownfish : {num_fishclown}')
     
     def open_history_window(self)-> None:
@@ -145,7 +144,7 @@ class MainWindow(QMainWindow):
             Returns:
                 None
         """
-        self.history_window= HistoryWindow()
+        self.history_window= self.history_window()
         self.history_window.show()
 
 # if __name__ == '__main__':
