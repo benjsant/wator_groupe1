@@ -6,6 +6,7 @@ import sys
 from PyQt5 import QtCore
 from PyQt5.QtCore import QTimer, QTime
 from planet import Planet
+from history_window import HistoryWindow
 
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
@@ -62,11 +63,16 @@ class MainWindow(QMainWindow):
         self.quit_button = QPushButton("Quitter", self)
         self.quit_button.setFont(QFont('Arial', 16)) 
         self.quit_button.clicked.connect(self.close)
+
+        self.history_button = QPushButton("Historique", self)
+        self.history_button.setFont(QFont('Arial', 16)) 
+        self.history_button.clicked.connect(self.open_history_window)
         
         control_panel.addWidget(self.timer_label)
         control_panel.addWidget(btn_reset)
         control_panel.addWidget(btn_start_pause)
         control_panel.addWidget(self.quit_button)
+        control_panel.addWidget(self.history_button)
         
         
         self.chronon = QLabel(f"Chronon : {self.planet.chronon}")
@@ -113,7 +119,22 @@ class MainWindow(QMainWindow):
     def update_simulation(self):
         self.planet.update()
         self.chronon.setText(f'Chronon : {self.planet.chronon}')  # ou rafraîchir une vue
-        
+    
+    def open_history_window(self)-> None:
+        """
+            Ouvre la fenêtre d'historique de simulation passée.
+
+            Cette méthode crée une instance de la classe HistoryWindow et l'affiche.
+            Elle est appelée lorsque l'utilisateur clique sur le bouton "Historique".
+            La fenêtre d'historique affichera les données de simulation passée chargées à partir
+            du fichier CSV history_wator_groupe1.csv.
+
+            Returns:
+                None
+        """
+        self.history_window= HistoryWindow()
+        self.history_window.show()
+
 if __name__ == '__main__':
     from planet import Planet
     planet = Planet(20,20)
