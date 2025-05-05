@@ -6,6 +6,7 @@ import sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from entity.shark import Shark
 from entity.fish import Fish
+from entity.clown_fish import ClownFish
 
 class GridView(QWidget):
     def __init__(self, planet,cell_size=30,parent =None):
@@ -31,9 +32,9 @@ class GridView(QWidget):
                 if cell_value=="":
                     color = QColor("cyan")
                     img = ""
-                elif (cell_value =="fish" or isinstance(cell_value, Fish)):
+                elif (cell_value =="ClownFish" or isinstance(cell_value, ClownFish)):
                     color = QColor("blue")
-                    img = "🐟"
+                    img = "🐠"
                 elif (cell_value =="shark" or isinstance(cell_value, Shark)):
                     color = QColor("red")
                     img ="🦈"
