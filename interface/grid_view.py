@@ -1,9 +1,14 @@
-from PyQt5.QtWidgets import QWidget
-from PyQt5.QtGui import QPainter, QColor
+from PyQt5.QtWidgets import QWidget, QLabel
+from PyQt5.QtGui import QPainter, QColor, QFont
 from PyQt5.QtCore import Qt
+import os
+import sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from entity.shark import Shark
+from entity.fish import Fish
 
 class GridView(QWidget):
-    def __init__(self, planet,cell_size=20,parent =None):
+    def __init__(self, planet,cell_size=30,parent =None):
         super().__init__(parent)
         self.planet =planet
         self.cell_size= cell_size
@@ -11,25 +16,30 @@ class GridView(QWidget):
         self.setMinimumSize(
             self.planet.width * self.cell_size,
             self.planet.height * self.cell_size
-            
         )
+        
+        
         
     def paintEvent(self, event):
         painter = QPainter(self)
-        
+        painter.setFont(QFont("Arial", self.cell_size-10))
         for x in range(self.planet.width):
             for y in range(self.planet.height):
                 cell_value = self.planet.grid[x][y]
                 
                 #couleur en fonction du contenue
                 if cell_value=="":
-                    color = QColor("white")
-                elif cell_value =="fish":
+                    color = QColor("cyan")
+                    img = ""
+                elif (cell_value =="fish" or isinstance(cell_value, Fish)):
                     color = QColor("blue")
-                elif cell_value =="shark":
+                    img = "🐟"
+                elif (cell_value =="shark" or isinstance(cell_value, Shark)):
                     color = QColor("red")
+                    img ="🦈"
                 else:
-                    color = QColor("white")
+                    color = QColor("cyan")
+                    img = ""
 
          # Dessine le carré
                 painter.fillRect(
@@ -37,12 +47,20 @@ class GridView(QWidget):
                     y * self.cell_size,
                     self.cell_size,
                     self.cell_size,
-                    color
+                    color,
                 )
                 painter.setPen(Qt.black)
                 painter.drawRect(
                     x * self.cell_size,
                     y * self.cell_size,
                     self.cell_size,
-                    self.cell_size
+                    self.cell_size,
+                )
+                painter.drawText(
+                    x* self.cell_size,
+                    y* self.cell_size,
+                    self.cell_size,
+                    self.cell_size,
+                    Qt.AlignCenter|Qt.AlignTop,
+                    img
                 )
