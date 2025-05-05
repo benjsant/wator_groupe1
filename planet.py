@@ -1,6 +1,6 @@
 class Planet:
     def __init__(self, width:int, height:int):
-        """_summary_
+        """
         class Planet
 
         Args:

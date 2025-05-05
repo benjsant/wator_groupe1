@@ -1,6 +1,7 @@
 import random
 from entity.fish import Fish
 from entity.clown_fish import ClownFish
+from planet import Planet
 
 class Shark(Fish):
     """
@@ -16,10 +17,10 @@ class Shark(Fish):
 
     """    
 
-    SHARK_REPRODUCTION_TIME: int = 10
+    SHARK_REPRODUCTION_TIME: int = 12
     chronon_shark: int = 0
-    shark_energy: int = 20
-    #alive: bool = True
+    shark_energy: int = 8
+    alive: bool = True
     img: str = "🦈"
     
     
@@ -29,7 +30,6 @@ class Shark(Fish):
 
     def move(self, grid) -> None:
         '''
-            Fonction move:
             On définit les 4 directions, et on les rend aléatoires.
             On parcourt une fois les directions dans une boucle pour vérifier si il y a un poisson 
             a proximité pour le faire passer en priorité et le manger.
@@ -48,9 +48,9 @@ class Shark(Fish):
 
             if isinstance(neighbor, ClownFish):
                 grid[new_x][new_y] = " " # pour supprimer le poisson
+                neighbor.alive = False
                 self.eat()
                 grid[self.x][self.y] = " "
-                self.reproduce()
                 self.x = new_x
                 self.y = new_y
                 grid[new_x][new_y] = self
@@ -62,7 +62,6 @@ class Shark(Fish):
 
             if grid[new_x][new_y] == " ":
                 grid[self.x][self.y] = " "
-                self.reproduce()
                 self.x = new_x
                 self.y = new_y
                 grid[new_x][new_y] = self
@@ -74,13 +73,12 @@ class Shark(Fish):
 
     def eat(self) -> None:
        '''
-            Fonction eat :
             Lorsque le requin mange, on augmente son énergie
        '''
        self.shark_energy += 3
 
 
-    def reproduce(self) -> object|None:  
+    def reproduce(self, x, y) -> object|None:  
         """
             Fonction gérant la reproduction des requins
             Lorsque les chronons du requins atteignent son âge de reproduction,
@@ -90,7 +88,7 @@ class Shark(Fish):
 
         if self.chronon_shark >= self.SHARK_REPRODUCTION_TIME:
             self.chronon_shark = 0
-            return Shark(x = self.x, y = self.y)
+            return Shark(x = x, y = y)
         else:
             return None
         
@@ -111,4 +109,6 @@ class Shark(Fish):
         """
         self.shark_energy -= 1
         if self.shark_energy == 0:
-            grid[self.x][self.y] = None
+            grid[self.x][self.y] = " "
+            self.alive= False
+            

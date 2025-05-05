@@ -4,8 +4,9 @@ import random
 
 class ClownFish(Fish):
     
-    REPRODUCTION_TIME=8 #Temps de reproduction des poissons 
+    REPRODUCTION_TIME = 5 #Temps de reproduction des poissons 
     emoji_fish: str = "🐠"
+    alive:bool = True
 
     def __init__(self,x :int, y :int):
         super().__init__(x, y)
@@ -25,6 +26,7 @@ class ClownFish(Fish):
                 None: La méthode modifie directement la position de l'entité dans la grille.
         """
         
+        self.chronon_fish_one_turn()
 
         directions=[(0,1), (1,0), (0,-1), (-1, 0)]
         random.shuffle(directions)
@@ -35,14 +37,13 @@ class ClownFish(Fish):
 
             if grid[new_x][new_y] == " ":
                 grid[self.x][self.y] = " "
-                self.reproduce()
                 self.x = new_x
                 self.y = new_y
                 grid[new_x][new_y] = self
                 break
     
 
-    def reproduce(self) -> object|None:
+    def reproduce(self, x, y) -> object|None:
         """
                 Vérifie si le poisson peut se reproduire en fonction de son temps de reproduction. 
                 Si le poisson a atteint son temps de reproduction, un nouvel objet ClownFish est créé 
@@ -54,7 +55,7 @@ class ClownFish(Fish):
         """
         if self.chronon_fish >= self.REPRODUCTION_TIME:
             self.chronon_fish = 0
-            return ClownFish(self.x, self.y)
+            return ClownFish(x = x, y = y)
         else :
             return None
         
