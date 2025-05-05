@@ -1,10 +1,18 @@
+
+from interface.grid_view import GridView
+from interface.main_window import MainWindow
+from interface.history_window import HistoryWindow
 from entity.fish import Fish
 from entity.shark import Shark
 from entity.clown_fish import ClownFish
 from planet import Planet
 import random
-from itertools import zip_longest # pour alterner poissons et requins dans boucle si nombre innégal
 from pprint import pprint # pour afficher ligne par ligne dans la console
+from PyQt5 import QtCore
+import sys
+from PyQt5.QtWidgets import *
+from PyQt5.QtGui import *
+from itertools import zip_longest # pour alterner poissons et requins dans boucle si nombre innégal
 
 
 
@@ -42,6 +50,14 @@ for _ in range(number_of_fishes):
             break
         
 
+
+
+# test de Mainwindows
+app = QApplication(sys.argv)
+main = MainWindow(test_world,GridView,ClownFish,Shark,HistoryWindow)
+main.show()
+sys.exit(app.exec())
+main.update()
 
 """ DISPLAY TERMINAL """
 
