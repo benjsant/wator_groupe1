@@ -144,8 +144,8 @@ class MainWindow(QMainWindow):
             Returns:
                 None
         """
-        self.history_window= self.history_window()
-        self.history_window.show()
+        self.history_window_instance= self.history_window()
+        self.history_window_instance.show()
 
 # if __name__ == '__main__':
 #     from planet import Planet

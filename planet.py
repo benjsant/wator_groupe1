@@ -1,3 +1,17 @@
+from interface.grid_view import GridView
+from interface.main_window import MainWindow
+from interface.history_window import HistoryWindow
+from entity.fish import Fish
+from entity.shark import Shark
+from entity.clown_fish import ClownFish
+import random
+from pprint import pprint # pour afficher ligne par ligne dans la console
+from PyQt5 import QtCore
+import sys
+from PyQt5.QtWidgets import *
+from PyQt5.QtGui import *
+from itertools import zip_longest # pour alterner poissons et requins dans boucle si nombre innégal
+
 class Planet:
     def __init__(self, width:int, height:int):
         """
@@ -25,9 +39,57 @@ class Planet:
         return [[" " for col in range(self.height)]for row in range(self.width)]  
         
                 
-    def display(self)->None:
-        pass
+    def display_planet(self) -> list:
+        """ Fonction permettant l'affichage de la grille 2D et ses éléments
+            On parcourt toute la grille :
+            - rencontre objet Shark -> affichage emoji requin
+            - rencontre objet ClownFish -> affichage emoji poisson
+            - sinon rien
+
+        Args:
+            grid (list): liste de liste représentant la grille en 2D
+
+        Returns:
+            list: liste de liste représentant la grille en 2D
+        """
+
+        display = self.init_grid()
+        for x in range(len(self.grid)): # pour chaque colonne
+            for y in range(len(self.grid[0])): # pour chaque ligne
+                cell = self.grid[x][y]
+                if isinstance(cell, Shark):
+                    display[x][y] = cell.img
+                elif isinstance(cell, ClownFish):
+                    display[x][y] = cell.emoji_fish
+                else:
+                    display[x][y] = " "
+        return display
     
+
+
+    def random_init_pos(self, nb_shark: int, nb_fishes: int):
+        # On y ajoute les requins de façon aléatoire (par objet), en vérifiant si la position est valide
+        for _ in range(nb_shark):
+            while True:
+                x = random.randrange(self.grid.columns)
+                y = random.randrange(self.grid.rows)
+                if self.is_valid_position(x=x, y=y):
+                    shark = Shark(x=x, y=y)
+                    self.new_shark(shark)
+                    break
+
+        # Même chose avec les poissons
+        for _ in range(nb_fishes):
+            while True:
+                x = random.randrange(self.grid.columns)
+                y = random.randrange(self.grid.rows)
+                if self.is_valid_position(x=x, y=y):
+                    fish = ClownFish(x=x, y=y)
+                    self.new_fish(fish)
+                    break
+        
+
+
     def update(self)->None:
         self.chronon += 1
 
@@ -92,3 +154,78 @@ class Planet:
                 return True
             else:
                 return False
+            
+
+
+    """ BOUCLE PRINCIPALE """
+    def run_simulation(self):
+
+        pprint(self.display_planet(self.grid))
+
+        while True:
+
+            # Liste prête à accueillir les bébés requins ou poissons
+            new_sharks = []
+            new_fishes = []
+
+            # Boucle alternant entre requins et poissons
+            # On les fait se déplacer, puis on gère leur reproduction
+            entities = list(zip_longest(self.sharks, self.fishes))
+            for shark, fish in entities:
+                if shark:
+                    shark_x = shark.x
+                    shark_y = shark.y
+                    shark.move(self.grid)
+                    # Gestion de la reproduction
+                    baby_shark = shark.reproduce(x=shark_x, y=shark_y)
+                    if baby_shark and self.is_valid_position(baby_shark.x, baby_shark.y):
+                        self.grid[baby_shark.x][baby_shark.y] = baby_shark
+                        new_sharks.append(baby_shark)
+
+                if fish:
+                    fish_x = fish.x
+                    fish_y = fish.y
+                    fish.move(self.grid)
+                    baby_fish = fish.reproduce(x = fish_x, y = fish_y)
+                    if baby_fish and self.is_valid_position(baby_fish.x, baby_fish.y):
+                        self.grid[baby_fish.x][baby_fish.y] = baby_fish
+                        new_fishes.append(baby_fish)
+
+            # Ajout des nouveaux poissons / requins
+            self.sharks.extend(new_sharks)
+            self.fishes.extend(new_fishes)
+
+            # On update pour ne garder que les entités vivantes
+            self.sharks = [shark for shark in self.sharks if shark.alive]
+            self.fishes = [fish for fish in self.fishes if fish.alive]
+
+            self.update() # incrémentation des chronons
+            print(f"Tour n°{self.chronon}")
+            pprint(self.display_planet(self.grid))
+
+
+            # VERIFICATIONS NBRE REQUINS / POISSONS
+            print(f"Fishes : {len(self.fishes)}")
+            print(f"Sharks : {len(self.sharks)}")
+
+            num_clownfish = 0
+            num_shark = 0
+            for row in range(len(self.grid)):
+                for col in range(len(self.grid[row])):
+                    cell=self.grid[row][col]
+                    if(isinstance(cell,ClownFish)):
+                        num_clownfish += 1
+                    if(isinstance(cell,Shark)):
+                        num_shark += 1
+
+            print("Poissons dans la grille : ", num_clownfish)
+            print("Requins dans la grille : ", num_shark)
+
+
+
+            # FIN BOUCLE
+            print("")
+            print("")
+
+            if len(self.sharks) == 0 or self.chronon >= 30:
+                break

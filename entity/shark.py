@@ -3,6 +3,7 @@ from entity.fish import Fish
 from entity.clown_fish import ClownFish
 from planet import Planet
 
+
 class Shark(Fish):
     """
     Classe représentant les requins
@@ -47,8 +48,8 @@ class Shark(Fish):
             neighbor = grid[new_x][new_y]
 
             if isinstance(neighbor, ClownFish):
-                grid[new_x][new_y] = " " # pour supprimer le poisson
                 neighbor.alive = False
+                grid[new_x][new_y] = " " # pour supprimer le poisson
                 self.eat()
                 grid[self.x][self.y] = " "
                 self.x = new_x
