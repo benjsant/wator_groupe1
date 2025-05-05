@@ -1,5 +1,6 @@
 import random
 from entity.fish import Fish
+from entity.clown_fish import ClownFish
 
 class Shark(Fish):
     """
@@ -15,10 +16,10 @@ class Shark(Fish):
 
     """    
 
-    MAX_SHARK_REPRODUCTION_TIME: int = 10
-    shark_reproduction_time: int = MAX_SHARK_REPRODUCTION_TIME
-    shark_energy: int = 10
-    alive: bool = True
+    SHARK_REPRODUCTION_TIME: int = 10
+    chronon_shark: int = 0
+    shark_energy: int = 20
+    #alive: bool = True
     img: str = "🦈"
     
     
@@ -35,39 +36,41 @@ class Shark(Fish):
             Si il n'y a pas de poisson, on refait une boucle pour choisir une case aléatoire parmis les cases vides.
         
         '''
+        self.chronon_shark_one_turn()
 
         directions=[(0,1),(1,0),(0,-1),(-1,0)]
         random.shuffle(directions)
 
         for dx, dy in directions:
-            new_x = (self.position[0] + dx) % len(grid[0])
-            new_y = (self.position[1] + dy) % len(grid)
-            neighbor = grid[new_y][new_x]
+            new_x = (self.x + dx) % len(grid[0])
+            new_y = (self.y + dy) % len(grid)
+            neighbor = grid[new_x][new_y]
 
-            if isinstance(neighbor, Fish):
-                grid[new_y, new_x] = None # pour supprimer le poisson
+            if isinstance(neighbor, ClownFish):
+                grid[new_x][new_y] = " " # pour supprimer le poisson
                 self.eat()
-                grid[self.position[1]][self.position[0]] = None
+                grid[self.x][self.y] = " "
                 self.reproduce()
-                self.position = [new_x, new_y]
-                grid[new_y, new_x] = self
-                return
+                self.x = new_x
+                self.y = new_y
+                grid[new_x][new_y] = self
+                break
         
         for dx, dy in directions:
-            new_x = (self.position[0] + dx) % len(grid[0])
-            new_y = (self.position[1] + dy) % len(grid)
+            new_x = (self.x + dx) % len(grid[0])
+            new_y = (self.y + dy) % len(grid)
 
-            if grid[new_y][new_x] is None:
-                grid[self.position[1]][self.position[0]] = None
+            if grid[new_x][new_y] == " ":
+                grid[self.x][self.y] = " "
                 self.reproduce()
-                self.position = [new_x, new_y]
-                grid[new_y, new_x] = self
+                self.x = new_x
+                self.y = new_y
+                grid[new_x][new_y] = self
                 break
 
-        self.shark_energy -= 1
-        if self.shark_energy == 0:
-            self.alive = False
-
+        self.is_alive(grid=grid)
+        
+        
 
     def eat(self) -> None:
        '''
@@ -77,17 +80,35 @@ class Shark(Fish):
        self.shark_energy += 3
 
 
-    def reproduce(self) -> object:  
+    def reproduce(self) -> object|None:  
         """
             Fonction gérant la reproduction des requins
-            Lorsque le timer tombe à 0 un nouveau requin naît, et le compteur est réinitialisé
+            Lorsque les chronons du requins atteignent son âge de reproduction,
+            on crée un nouveau requin, et les chronons sont réinitialisés
 
         """        
 
-        self.shark_reproduction_time -= 1
-        if self.shark_reproduction_time == 0:    
-            self.shark_reproduction_time = self.MAX_SHARK_REPRODUCTION_TIME
+        if self.chronon_shark >= self.SHARK_REPRODUCTION_TIME:
+            self.chronon_shark = 0
             return Shark(x = self.x, y = self.y)
+        else:
+            return None
         
 
+    def chronon_shark_one_turn(self):
+        """ 
+            Fonction incrémentant les chronons du requin
+        """
+        self.chronon_shark += 1
+    
 
+    def is_alive(self, grid):
+        """Fonction vérifiant si le requin est toujours en vie
+        Si la variable shark_energy tombe à 0, le requin disparaît
+
+        Args:
+            grid (list):  Grid (list of list), environnement dans lequel évolue le requin
+        """
+        self.shark_energy -= 1
+        if self.shark_energy == 0:
+            grid[self.x][self.y] = None
