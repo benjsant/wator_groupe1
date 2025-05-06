@@ -1,6 +1,5 @@
-import sys
 import pandas as pd 
-from PyQt5.QtWidgets import QApplication, QMainWindow, QTableWidget, QTableWidgetItem,QVBoxLayout,QWidget
+from PyQt5.QtWidgets import QMainWindow, QTableWidget, QTableWidgetItem,QVBoxLayout,QWidget
 from PyQt5.QtGui import QFont
 
 CSV_FILE="history_wator_groupe1.csv"

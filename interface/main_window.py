@@ -101,7 +101,6 @@ class MainWindow(QMainWindow):
     def restart(self)->None:
         QtCore.QCoreApplication.quit()
         status = QtCore.QProcess.startDetached(sys.executable, sys.argv)
-        print(status)
 
     #  methode qui mets en pause
     def retake(self)->None:
@@ -125,9 +124,6 @@ class MainWindow(QMainWindow):
             self.timer.stop()
             if self.save_simulation: 
                 self.save_simulation=False
-                print(f"nombre chronon : {self.planet.chronon}")
-                print(f"nombre poisson: {len(self.planet.fishes)}")
-                print(f"nombre requin {len(self.planet.sharks)}")
                 save_results(self.planet.chronon,len(self.planet.fishes),len(self.planet.sharks))
             return
         
