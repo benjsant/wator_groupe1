@@ -1,10 +1,17 @@
 
-from planet import Planet
-# from PyQt5 import QtCore
-# from PyQt5.QtWidgets import *
-# from PyQt5.QtGui import *
 from utils.config import *
-
+from interface.grid_view import GridView
+from interface.main_window import MainWindow
+from interface.history_window import HistoryWindow
+from entity.fish import Fish
+from entity.shark import Shark
+from entity.clown_fish import ClownFish
+from planet import Planet
+from pprint import pprint # pour afficher ligne par ligne dans la console
+from PyQt5 import QtCore
+import sys
+from PyQt5.QtWidgets import *
+from PyQt5.QtGui import *
 
 """ SETTINGS """
 """
