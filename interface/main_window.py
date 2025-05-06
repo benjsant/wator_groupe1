@@ -9,6 +9,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from entity.shark import Shark
 from entity.clown_fish import ClownFish
 from utils.config import *
+from utils.data_manager import save_results
 
 class MainWindow(QMainWindow):
     def __init__(self,planet,GridView,Clownfish,Shark,HistoryWindow):
@@ -18,6 +19,7 @@ class MainWindow(QMainWindow):
         self.setWindowTitle("Wator")
         self.resize(1600, 1200)
         self.isactiveworld=True
+        self.save_simulation=True
         self.history_window=HistoryWindow
         # QTimer pour contrôler le cycle de simulation (Chronon)
         self.sim_timer =QTimer(self)
@@ -117,10 +119,16 @@ class MainWindow(QMainWindow):
         self.timer_label.setText(f'execution time:  {self.start_time.toString("h")}:{self.start_time.toString("m")}:{self.start_time.toString("s")}')
         
     def update_simulation(self)->None:
-        
+
         # chronons max modifiables dans utils/config.py
         if(self.planet.chronon>=max_chronons) or (len(self.planet.fishes) ==0) or (len(self.planet.sharks) ==0):
             self.timer.stop()
+            if self.save_simulation: 
+                self.save_simulation=False
+                print(f"nombre chronon : {self.planet.chronon}")
+                print(f"nombre poisson: {len(self.planet.fishes)}")
+                print(f"nombre requin {len(self.planet.sharks)}")
+                save_results(self.planet.chronon,len(self.planet.fishes),len(self.planet.sharks))
             return
         
         if(self.isactiveworld):
@@ -162,13 +170,3 @@ class MainWindow(QMainWindow):
             self.history_window_instance.close()
             
         self.close()
-
-# if __name__ == '__main__':
-#     from planet import Planet
-#     planet = Planet(20,20)
-#     planet.grid[10][5]="fish"
-#     planet.grid[10][4]="shark"
-#     app = QApplication(sys.argv)
-#     main = MainWindow(planet)
-#     main.show()
-#     sys.exit(app.exec())

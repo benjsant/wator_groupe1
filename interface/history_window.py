@@ -34,7 +34,7 @@ class HistoryWindow(QMainWindow):
         # (y: position verticale ↑ ↓ par rapport au coin gauche supérieur de l'écran  )
         # (width: largeur de la fenetre en pixel px )
         # (height: hauteur de la fenetre en pixel px )
-        self.setGeometry(100,100, 815, 600)
+        self.setGeometry(100,100, 830, 600)
 
         # Création widget central 
         central_widget = QWidget()
@@ -79,8 +79,8 @@ class HistoryWindow(QMainWindow):
             self.table_widget.setColumnWidth(0, 100)  # Élargis la colonne "Date" à 100 pixels
             self.table_widget.setColumnWidth(1, 175)  # Élargis la colonne "Heure_Minutes" à 100 pixels
             self.table_widget.setColumnWidth(2, 125)  # Élargis la colonne "Chronons" à 100 pixels
-            self.table_widget.setColumnWidth(3, 175)  # Élargis la colonne "Poissons restants" à 150 pixels
-            self.table_widget.setColumnWidth(4, 175)  # Élargis la colonne "Requin restants" à 150 pixels
+            self.table_widget.setColumnWidth(3, 190)  # Élargis la colonne "Poissons restants" à 190 pixels
+            self.table_widget.setColumnWidth(4, 175)  # Élargis la colonne "Requin restants" à 175 pixels
 
             # Recuperation des valeurs de la DataFrame avec ajout dans les lignes du tableau PyQt
             for index_data_load, row in data_load.iterrows():
@@ -94,9 +94,3 @@ class HistoryWindow(QMainWindow):
         except FileNotFoundError:
             print(f"Le fichier {CSV_FILE} n'existe pas, Veuillez d'abord exécuter la simulation .")
             self.table_widget.setRowCount(0) # Il n'y a aucune donnée à afficher 
-            
-if __name__ == "__main__":
-    app = QApplication(sys.argv)
-    history_window = HistoryWindow()
-    history_window.show()
-    sys.exit(app.exec_())

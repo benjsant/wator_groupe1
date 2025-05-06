@@ -23,7 +23,7 @@ class GridView(QWidget):
         
     def paintEvent(self, event):
         painter = QPainter(self)
-        painter.setFont(QFont("Arial", self.cell_size-16))
+        painter.setFont(QFont("Arial", self.cell_size-20))
         for x in range(self.planet.width):
             for y in range(self.planet.height):
                 cell_value = self.planet.grid[y][x]
@@ -50,7 +50,7 @@ class GridView(QWidget):
                     self.cell_size,
                     color,
                 )
-                painter.setPen(Qt.black)
+                painter.setPen(Qt.white)
                 painter.drawRect(
                     x * self.cell_size,
                     y * self.cell_size,
