@@ -31,7 +31,7 @@ GRID_COLUMNS = columns
 test_world = Planet(width=GRID_COLUMNS, height=GRID_ROWS)
 test_world.display_planet()
 test_world.random_init_pos(nb_fishes=NB_OF_FISHES, nb_shark=NB_OF_SHARKS)
-test_world.run_simulation()
+#test_world.run_simulation()
 
 
 

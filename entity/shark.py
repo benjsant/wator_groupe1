@@ -107,7 +107,7 @@ class Shark(Fish):
             grid (list):  Grid (list of list), environnement dans lequel évolue le requin
         """
         self.shark_energy -= 1
-        if self.shark_energy == 0:
+        if self.shark_energy <= 0:
             grid[self.y][self.x] = " "
             self.alive= False
             
