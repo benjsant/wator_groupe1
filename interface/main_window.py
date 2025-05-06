@@ -4,8 +4,6 @@ from PyQt5.QtWidgets import QMainWindow, QPushButton, QVBoxLayout, QWidget
 import sys
 from PyQt5 import QtCore
 from PyQt5.QtCore import QTimer, QTime
-
-
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from entity.shark import Shark
@@ -18,11 +16,11 @@ class MainWindow(QMainWindow):
         #definition de la fenetre
         self.setWindowTitle("Wator")
         self.resize(1200, 800)
-        self.isactive=True
+        self.isactiveworld=True
         self.history_window=HistoryWindow
         # QTimer pour contrôler le cycle de simulation (Chronon)
         self.sim_timer =QTimer(self)
-        self.sim_timer.setInterval(3000) #2 sec
+        self.sim_timer.setInterval(3000) #3 sec
         self.sim_timer.timeout.connect(self.update_simulation)
         self.sim_timer.start()
         #timer de la l'application
@@ -63,7 +61,7 @@ class MainWindow(QMainWindow):
         #boutton quitter
         self.quit_button = QPushButton("Quitter", self)
         self.quit_button.setFont(QFont('Arial', 16)) 
-        self.quit_button.clicked.connect(self.close)
+        self.quit_button.clicked.connect(self.quitter)
 
         self.history_button = QPushButton("Historique", self)
         self.history_button.setFont(QFont('Arial', 16)) 
@@ -105,11 +103,11 @@ class MainWindow(QMainWindow):
     #  methode qui mets en pause
     def retake(self)->None:
         if self.timer.isActive():
-            print(self.timer.isActive())
             self.timer.stop()
+            self.isactiveworld=False
         else:
             self.timer.start()
-            print(self.timer.isActive())
+            self.isactiveworld=True
             
     def update_timer(self)->None:
         #mise a jour du temps
@@ -118,19 +116,28 @@ class MainWindow(QMainWindow):
         self.timer_label.setText(f'execution time:  {self.start_time.toString("h")}:{self.start_time.toString("m")}:{self.start_time.toString("s")}')
         
     def update_simulation(self)->None:
-        num_fishclown = 0  # Remise à zéro pour recompter à chaque cycle
-        num_shark = 0
-        self.planet.update()
-        for row in range(len(self.planet.grid)):
-            for col in range(len(self.planet.grid[row])):
-                cell=self.planet.grid[row][col]
-                if(isinstance(cell,ClownFish)):
-                    num_fishclown=num_fishclown+1
-                if(isinstance(cell,Shark)):
-                    num_shark=num_shark+1
-        self.chronon.setText(f'Chronon : {self.planet.chronon}')  # ou rafraîchir une vue
-        self.shark.setText(f'Shark : {num_shark}')
-        self.clownfish.setText(f'Clownfish : {num_fishclown}')
+        if(self.isactiveworld):
+            num_fishclown = 0  # Remise à zéro pour recompter à chaque cycle
+            num_shark = 0
+            
+            for fish in self.planet.fishes:
+                fish.move(self.planet.grid)
+
+            for shark in self.planet.sharks:
+                shark.move(self.planet.grid)
+            
+            self.planet.update()
+            for row in range(len(self.planet.grid)):
+                for col in range(len(self.planet.grid[row])):
+                    cell=self.planet.grid[row][col]
+                    if(isinstance(cell,ClownFish)):
+                        num_fishclown=num_fishclown+1
+                    if(isinstance(cell,Shark)):
+                        num_shark=num_shark+1
+            self.chronon.setText(f'Chronon : {self.planet.chronon}')  # ou rafraîchir une vue
+            self.shark.setText(f'Shark : {num_shark}')
+            self.clownfish.setText(f'Clownfish : {num_fishclown}')
+            self.grid_view.repaint()
     
     def open_history_window(self)-> None:
         """
@@ -146,6 +153,12 @@ class MainWindow(QMainWindow):
         """
         self.history_window_instance= self.history_window()
         self.history_window_instance.show()
+        
+    def quitter(self):
+        if self.history_window_instance.isVisible():
+            self.history_window_instance.close()
+            
+        self.close()
 
 # if __name__ == '__main__':
 #     from planet import Planet

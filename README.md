@@ -43,10 +43,9 @@ git clone https://github.com/benjsant/wator_groupe1.git
 
 2. **Installer Python** : Assurez-vous d'avoir Python 3.13.3 installé sur votre machine. Utilisez un terminal de commande pour lancer la simulation. 
    
-3. **Installer les dépendances**: Assurez-vous égalemnt d'installer les paquets Python suivants avec la commande pip: 
+3. **Installer les dépendances**: Assurez-vous également d'installer les paquets Python suivants avec la commande pip: 
   
 ```bash
-pip install PyQt5 
-pip install pandas
+pip install -r requirements.txt
 ```
 

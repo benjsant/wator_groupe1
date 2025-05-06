@@ -65,3 +65,24 @@ class GridView(QWidget):
                     Qt.AlignCenter|Qt.AlignTop,
                     img
                 )
+
+    def update_grid(self):
+         for x in range(self.planet.width):
+            for y in range(self.planet.height):
+                cell_value = self.planet.grid[x][y]
+                
+                #couleur en fonction du contenue
+                if cell_value=="":
+                    color = QColor("cyan")
+                    img = ""
+                elif (cell_value =="ClownFish" or isinstance(cell_value, ClownFish)):
+                    color = QColor("blue")
+                    img = "🐠"
+                elif (cell_value =="shark" or isinstance(cell_value, Shark)):
+                    color = QColor("red")
+                    img ="🦈"
+                else:
+                    color = QColor("cyan")
+                    img = ""
+                    
+        
