@@ -17,11 +17,11 @@ from itertools import zip_longest # pour alterner poissons et requins dans boucl
 
 """ SETTINGS """
 
-number_of_fishes = 10
-number_of_sharks = 3
+number_of_fishes = 12
+number_of_sharks = 20
 
-rows = 8
-columns = 8
+rows = 15
+columns = 15
 
 
 """ GENERATE """
@@ -48,14 +48,6 @@ for _ in range(number_of_fishes):
             test_world.new_fish(fish)
             break
         
-# test de Mainwindows
-app = QApplication(sys.argv)
-main = MainWindow(test_world,GridView,ClownFish,Shark,HistoryWindow)
-main.show()
-sys.exit(app.exec())
-main.update()
-
-
 # test de Mainwindows
 app = QApplication(sys.argv)
 main = MainWindow(test_world,GridView,ClownFish,Shark,HistoryWindow)
