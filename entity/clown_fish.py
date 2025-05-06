@@ -1,16 +1,17 @@
 from entity.fish import Fish
+from utils.config import *
 import random
 
 
 class ClownFish(Fish):
     
-    REPRODUCTION_TIME = 5 #Temps de reproduction des poissons 
+    REPRODUCTION_TIME: int = fish_reproduction_time #Temps de reproduction des poissons. Modification dans utils/config.py 
     emoji_fish: str = "🐠"
-    alive:bool = True
 
     def __init__(self,x :int, y :int):
         super().__init__(x, y)
         self.chronon_fish = 0
+        self.alive:bool = True
 
     def move(self, grid)->None: 
         """

@@ -1,8 +1,11 @@
 
 """ MAIN SETTINGS """
 
-number_of_fishes = 2
-number_of_sharks = 6
+rows = 20
+columns = 20
 
-rows = 8
-columns = 8
+number_of_fishes = 40
+fish_reproduction_time = 10
+
+number_of_sharks = 10
+shark_reproduction_time = 15

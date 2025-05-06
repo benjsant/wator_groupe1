@@ -145,8 +145,8 @@ class Planet:
         else:
             if self.grid[y][x] == " ":
                 return True
-            # else:
-            #     return False
+            else:
+                return False
             
 
 
