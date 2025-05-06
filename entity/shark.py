@@ -1,6 +1,7 @@
 import random
 from entity.fish import Fish
 from entity.clown_fish import ClownFish
+from utils.config import *
 
 
 class Shark(Fish):
@@ -17,15 +18,15 @@ class Shark(Fish):
 
     """    
 
-    SHARK_REPRODUCTION_TIME: int = 12
-    chronon_shark: int = 0
-    shark_energy: int = 8
-    alive: bool = True
+    SHARK_REPRODUCTION_TIME: int = shark_reproduction_time #Temps de reproduction des requins. Modification dans utils/config.py 
     img: str = "🦈"
     
     
     def __init__(self, x, y):
         super().__init__(x, y)
+        self.chronon_shark: int = 0
+        self.shark_energy: int = 8
+        self.alive: bool = True
         
 
     def move(self, grid) -> None:
@@ -54,6 +55,7 @@ class Shark(Fish):
                 self.x = new_x
                 self.y = new_y
                 grid[new_y][new_x] = self
+                self.is_alive(grid=grid)
                 return
         
         for dx, dy in directions:
@@ -65,9 +67,10 @@ class Shark(Fish):
                 self.x = new_x
                 self.y = new_y
                 grid[new_y][new_x] = self
+                self.is_alive(grid=grid)
                 return
 
-        self.is_alive(grid=grid)
+        
         
         
 
