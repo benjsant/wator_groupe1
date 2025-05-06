@@ -80,11 +80,6 @@ class Planet:
                     fish = ClownFish(x=x, y=y)
                     self.new_fish(fish)
                     break
-        
-
-
-    def update(self)->None:
-        self.chronon += 1
 
 
     def new_fish(self, fish):
@@ -159,10 +154,6 @@ class Planet:
             
         """
 
-        #pprint(self.display_planet())
-
-        #while True:
-
         # Liste prête à accueillir les bébés requins ou poissons
         new_sharks = []
         new_fishes = []
@@ -194,10 +185,4 @@ class Planet:
         # On update pour ne garder que les entités vivantes
         self.sharks = [shark for shark in self.sharks if shark.alive]
         self.fishes = [fish for fish in self.fishes if fish.alive]
-        self.update() # incrémentation des chronons
-        
-        # Simulation par la console :
-        # print(f"Tour n°{self.chronon}")
-        # pprint(self.display_planet())
-        # if len(self.sharks) == 0 or self.chronon >= 30:
-        #     break
+        self.chronon+=1

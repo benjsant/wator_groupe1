@@ -9,7 +9,7 @@ from entity.fish import Fish
 from entity.clown_fish import ClownFish
 
 class GridView(QWidget):
-    def __init__(self, planet,cell_size=30,parent =None):
+    def __init__(self, planet,cell_size=40,parent =None):
         super().__init__(parent)
         self.planet =planet
         self.cell_size= cell_size
@@ -23,7 +23,7 @@ class GridView(QWidget):
         
     def paintEvent(self, event):
         painter = QPainter(self)
-        painter.setFont(QFont("Arial", self.cell_size-10))
+        painter.setFont(QFont("Arial", self.cell_size-20))
         for x in range(self.planet.width):
             for y in range(self.planet.height):
                 cell_value = self.planet.grid[x][y]
@@ -50,7 +50,7 @@ class GridView(QWidget):
                     self.cell_size,
                     color,
                 )
-                painter.setPen(Qt.black)
+                painter.setPen(Qt.white)
                 painter.drawRect(
                     x * self.cell_size,
                     y * self.cell_size,
