@@ -20,7 +20,7 @@ class MainWindow(QMainWindow):
         self.history_window=HistoryWindow
         # QTimer pour contrôler le cycle de simulation (Chronon)
         self.sim_timer =QTimer(self)
-        self.sim_timer.setInterval(3000) #3 sec
+        self.sim_timer.setInterval(500) #3 sec
         self.sim_timer.timeout.connect(self.update_simulation)
         self.sim_timer.start()
         #timer de la l'application
@@ -120,13 +120,8 @@ class MainWindow(QMainWindow):
             num_fishclown = 0  # Remise à zéro pour recompter à chaque cycle
             num_shark = 0
             
-            for fish in self.planet.fishes:
-                fish.move(self.planet.grid)
-
-            for shark in self.planet.sharks:
-                shark.move(self.planet.grid)
+            self.planet.run_simulation()
             
-            self.planet.update()
             for row in range(len(self.planet.grid)):
                 for col in range(len(self.planet.grid[row])):
                     cell=self.planet.grid[row][col]
@@ -155,6 +150,7 @@ class MainWindow(QMainWindow):
         self.history_window_instance.show()
         
     def quitter(self):
+        self.history_window_instance= self.history_window()
         if self.history_window_instance.isVisible():
             self.history_window_instance.close()
             
