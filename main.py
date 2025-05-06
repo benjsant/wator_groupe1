@@ -37,12 +37,11 @@ test_world.run_simulation()
 
 """ AFFICHAGE """
 
-# test de Mainwindows
-# app = QApplication(sys.argv)
-# main = MainWindow(test_world,GridView,ClownFish,Shark,HistoryWindow)
-# main.show()
-# sys.exit(app.exec())
-# main.update()
+app = QApplication(sys.argv)
+main = MainWindow(test_world,GridView,ClownFish,Shark,HistoryWindow)
+main.show()
+sys.exit(app.exec())
+main.update()
 
 
 
