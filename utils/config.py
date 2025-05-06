@@ -7,7 +7,7 @@ columns = 24
 
 # CHRONONS SETTINGS
 max_chronons = 100
-cycle_time = 500  # milliseconds
+cycle_time = 5  # milliseconds
 
 # FISHES SETTINGS
 number_of_fishes = 40

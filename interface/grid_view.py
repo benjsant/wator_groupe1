@@ -1,11 +1,10 @@
-from PyQt5.QtWidgets import QWidget, QLabel
+from PyQt5.QtWidgets import QWidget
 from PyQt5.QtGui import QPainter, QColor, QFont
 from PyQt5.QtCore import Qt
 import os
 import sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from entity.shark import Shark
-from entity.fish import Fish
 from entity.clown_fish import ClownFish
 
 class GridView(QWidget):
@@ -18,9 +17,7 @@ class GridView(QWidget):
             self.planet.width * self.cell_size,
             self.planet.height * self.cell_size
         )
-        
-        
-        
+                
     def paintEvent(self, event):
         painter = QPainter(self)
         painter.setFont(QFont("Arial", self.cell_size-20))

@@ -3,7 +3,6 @@ from entity.fish import Fish
 from entity.clown_fish import ClownFish
 from utils.config import *
 
-
 class Shark(Fish):
     """
     Classe représentant les requins
@@ -69,10 +68,6 @@ class Shark(Fish):
                 grid[new_y][new_x] = self
                 self.is_alive(grid=grid)
                 return
-
-        
-        
-        
 
     def eat(self) -> None:
        '''

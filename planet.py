@@ -2,7 +2,6 @@ from entity.fish import Fish
 from entity.shark import Shark
 from entity.clown_fish import ClownFish
 import random
-from pprint import pprint # pour afficher ligne par ligne dans la console
 
 
 class Planet:
