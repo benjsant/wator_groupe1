@@ -26,7 +26,7 @@ class GridView(QWidget):
         painter.setFont(QFont("Arial", self.cell_size-20))
         for x in range(self.planet.width):
             for y in range(self.planet.height):
-                cell_value = self.planet.grid[x][y]
+                cell_value = self.planet.grid[y][x]
                 
                 #couleur en fonction du contenue
                 if cell_value=="":
@@ -69,7 +69,7 @@ class GridView(QWidget):
     def update_grid(self):
          for x in range(self.planet.width):
             for y in range(self.planet.height):
-                cell_value = self.planet.grid[x][y]
+                cell_value = self.planet.grid[y][x]
                 
                 #couleur en fonction du contenue
                 if cell_value=="":
