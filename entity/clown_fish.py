@@ -32,15 +32,15 @@ class ClownFish(Fish):
         random.shuffle(directions)
 
         for dx, dy in directions:
-            new_x = (self.x + dx) % len(grid)
-            new_y = (self.y + dy) % len(grid[0])
+            new_x = (self.x + dx) % len(grid[0])
+            new_y = (self.y + dy) % len(grid)
 
-            if grid[new_x][new_y] == " ":
-                grid[self.x][self.y] = " "
+            if grid[new_y][new_x] == " ":
+                grid[self.y][self.x] = " "
                 self.x = new_x
                 self.y = new_y
-                grid[new_x][new_y] = self
-                break
+                grid[new_y][new_x] = self
+                return
     
 
     def reproduce(self, x, y) -> object|None:
@@ -56,8 +56,7 @@ class ClownFish(Fish):
         if self.chronon_fish >= self.REPRODUCTION_TIME:
             self.chronon_fish = 0
             return ClownFish(x = x, y = y)
-        else :
-            return None
+        return None
         
     def chronon_fish_one_turn(self): 
         """_summary_

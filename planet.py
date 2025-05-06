@@ -36,7 +36,7 @@ class Planet:
             list: retourne une variable a 2 dimension pour acceder grid[x][y]
         """
         """"""
-        return [[" " for col in range(self.height)]for row in range(self.width)]  
+        return [[" " for _ in range(self.width)] for _ in range(self.height)]  
         
                 
     def display_planet(self) -> list:
@@ -54,15 +54,15 @@ class Planet:
         """
 
         display = self.init_grid()
-        for x in range(len(self.grid)): # pour chaque colonne
-            for y in range(len(self.grid[0])): # pour chaque ligne
-                cell = self.grid[x][y]
+        for y in range(len(self.grid)): # pour chaque ligne
+            for x in range(len(self.grid[0])): # pour chaque colonne
+                cell = self.grid[y][x]
                 if isinstance(cell, Shark):
-                    display[x][y] = cell.img
+                    display[y][x] = cell.img
                 elif isinstance(cell, ClownFish):
-                    display[x][y] = cell.emoji_fish
+                    display[y][x] = cell.emoji_fish
                 else:
-                    display[x][y] = " "
+                    display[y][x] = " "
         return display
     
 
@@ -112,7 +112,7 @@ class Planet:
         if len(self.fishes) >= (self.width * self.height):
             return None
         self.fishes.append(fish)
-        self.grid[fish.x][fish.y] = fish
+        self.grid[fish.y][fish.x] = fish
 
 
     def new_shark(self, shark):
@@ -133,7 +133,7 @@ class Planet:
         if len(self.sharks) >= (self.width * self.height):
             return None
         self.sharks.append(shark)
-        self.grid[shark.x][shark.y] = shark
+        self.grid[shark.y][shark.x] = shark
 
 
 
@@ -150,10 +150,10 @@ class Planet:
         if x >= self.width or y >= self.height:
             return False
         else:
-            if self.grid[x][y] == " ":
+            if self.grid[y][x] == " ":
                 return True
-            else:
-                return False
+            # else:
+            #     return False
             
 
 
@@ -170,25 +170,29 @@ class Planet:
 
             # Boucle alternant entre requins et poissons
             # On les fait se déplacer, puis on gère leur reproduction
-            entities = list(zip_longest(self.sharks, self.fishes))
-            for shark, fish in entities:
+
+            for shark in self.sharks:
                 if shark:
                     shark_x = shark.x
                     shark_y = shark.y
                     shark.move(self.grid)
                     # Gestion de la reproduction
                     baby_shark = shark.reproduce(x=shark_x, y=shark_y)
-                    if baby_shark and self.is_valid_position(baby_shark.x, baby_shark.y):
-                        self.grid[baby_shark.x][baby_shark.y] = baby_shark
+                    if baby_shark and self.is_valid_position(x = baby_shark.x, y = baby_shark.y):
+                        self.grid[baby_shark.y][baby_shark.x] = baby_shark
                         new_sharks.append(baby_shark)
 
+                        
+            self.fishes = [fish for fish in self.fishes if fish.alive]
+
+            for fish in self.fishes:
                 if fish:
                     fish_x = fish.x
                     fish_y = fish.y
                     fish.move(self.grid)
                     baby_fish = fish.reproduce(x = fish_x, y = fish_y)
-                    if baby_fish and self.is_valid_position(baby_fish.x, baby_fish.y):
-                        self.grid[baby_fish.x][baby_fish.y] = baby_fish
+                    if baby_fish and self.is_valid_position(x = baby_fish.x, y = baby_fish.y):
+                        self.grid[baby_fish.y][baby_fish.x] = baby_fish
                         new_fishes.append(baby_fish)
 
             # Ajout des nouveaux poissons / requins
@@ -210,9 +214,9 @@ class Planet:
 
             num_clownfish = 0
             num_shark = 0
-            for row in range(len(self.grid)):
-                for col in range(len(self.grid[row])):
-                    cell=self.grid[row][col]
+            for y in range(len(self.grid)):
+                for x in range(len(self.grid[y])):
+                    cell=self.grid[y][x]
                     if(isinstance(cell,ClownFish)):
                         num_clownfish += 1
                     if(isinstance(cell,Shark)):
@@ -222,11 +226,11 @@ class Planet:
             print("Requins dans la grille : ", num_shark)
 
 
-            for x in range(self.width):
-                for y in range(self.height):
-                    entity = self.grid[x][y]
+            for y in range(self.height):
+                for x in range(self.width):
+                    entity = self.grid[y][x]
                     if isinstance(entity, ClownFish) and entity not in self.fishes:
-                        print(f"🐠 Problème détecté à la position ({x},{y}) : poisson non listé.")
+                        print(f"🐠 Problème détecté à la position ({y},{x}) : poisson non listé.")
 
 
             # FIN BOUCLE
