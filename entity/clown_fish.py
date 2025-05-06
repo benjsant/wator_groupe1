@@ -32,8 +32,8 @@ class ClownFish(Fish):
         random.shuffle(directions)
 
         for dx, dy in directions:
-            new_x = (self.x + dx) % len(grid[0])
-            new_y = (self.y + dy) % len(grid)
+            new_x = (self.x + dx) % len(grid)
+            new_y = (self.y + dy) % len(grid[0])
 
             if grid[new_x][new_y] == " ":
                 grid[self.x][self.y] = " "

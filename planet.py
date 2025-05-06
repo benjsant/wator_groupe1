@@ -71,8 +71,8 @@ class Planet:
         # On y ajoute les requins de façon aléatoire (par objet), en vérifiant si la position est valide
         for _ in range(nb_shark):
             while True:
-                x = random.randrange(self.grid.columns)
-                y = random.randrange(self.grid.rows)
+                x = random.randrange(self.width)
+                y = random.randrange(self.height)
                 if self.is_valid_position(x=x, y=y):
                     shark = Shark(x=x, y=y)
                     self.new_shark(shark)
@@ -81,8 +81,8 @@ class Planet:
         # Même chose avec les poissons
         for _ in range(nb_fishes):
             while True:
-                x = random.randrange(self.grid.columns)
-                y = random.randrange(self.grid.rows)
+                x = random.randrange(self.width)
+                y = random.randrange(self.height)
                 if self.is_valid_position(x=x, y=y):
                     fish = ClownFish(x=x, y=y)
                     self.new_fish(fish)
@@ -160,7 +160,7 @@ class Planet:
     """ BOUCLE PRINCIPALE """
     def run_simulation(self):
 
-        pprint(self.display_planet(self.grid))
+        pprint(self.display_planet())
 
         while True:
 
@@ -201,7 +201,7 @@ class Planet:
 
             self.update() # incrémentation des chronons
             print(f"Tour n°{self.chronon}")
-            pprint(self.display_planet(self.grid))
+            pprint(self.display_planet())
 
 
             # VERIFICATIONS NBRE REQUINS / POISSONS
@@ -221,6 +221,12 @@ class Planet:
             print("Poissons dans la grille : ", num_clownfish)
             print("Requins dans la grille : ", num_shark)
 
+
+            for x in range(self.width):
+                for y in range(self.height):
+                    entity = self.grid[x][y]
+                    if isinstance(entity, ClownFish) and entity not in self.fishes:
+                        print(f"🐠 Problème détecté à la position ({x},{y}) : poisson non listé.")
 
 
             # FIN BOUCLE

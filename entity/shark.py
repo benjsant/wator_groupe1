@@ -1,7 +1,6 @@
 import random
 from entity.fish import Fish
 from entity.clown_fish import ClownFish
-from planet import Planet
 
 
 class Shark(Fish):
@@ -43,8 +42,8 @@ class Shark(Fish):
         random.shuffle(directions)
 
         for dx, dy in directions:
-            new_x = (self.x + dx) % len(grid[0])
-            new_y = (self.y + dy) % len(grid)
+            new_x = (self.x + dx) % len(grid)
+            new_y = (self.y + dy) % len(grid[0])
             neighbor = grid[new_x][new_y]
 
             if isinstance(neighbor, ClownFish):
