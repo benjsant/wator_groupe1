@@ -23,10 +23,10 @@ class Planet:
         
     def init_grid(self)->list:
         """_summary_
-        fonction qui initialize le monde 2 dimension
+        fonction qui initialise le monde en 2 dimensions
 
         Returns:
-            list: retourne une variable a 2 dimension pour acceder grid[x][y]
+            list: retourne une variable à 2 dimension. Pour y accéder : grid[y][x]
         """
         """"""
         return [[" " for _ in range(self.width)] for _ in range(self.height)]  
@@ -151,84 +151,53 @@ class Planet:
 
 
     """ BOUCLE PRINCIPALE """
-    def run_simulation(self):
+    def run_simulation(self) :
+        """
+            Boucle principale de la simulation.
+            Les requins sont déplacés, priorité vers les poissons pour les manger, tout en gérant leur reproduction.
+            Ensuite déplacement des poissons, avec reproduction.
+            
+        """
 
-        pprint(self.display_planet())
+        #pprint(self.display_planet())
 
-        while True:
+        #while True:
 
-            # Liste prête à accueillir les bébés requins ou poissons
-            new_sharks = []
-            new_fishes = []
-
-            # Boucle alternant entre requins et poissons
-            # On les fait se déplacer, puis on gère leur reproduction
-
-            for shark in self.sharks:
-                if shark:
-                    shark_x = shark.x
-                    shark_y = shark.y
-                    shark.move(self.grid)
-                    # Gestion de la reproduction
-                    baby_shark = shark.reproduce(x=shark_x, y=shark_y)
-                    if baby_shark and self.is_valid_position(x = baby_shark.x, y = baby_shark.y):
-                        self.grid[baby_shark.y][baby_shark.x] = baby_shark
-                        new_sharks.append(baby_shark)
-
-                        
-            self.fishes = [fish for fish in self.fishes if fish.alive]
-
-            for fish in self.fishes:
-                if fish:
-                    fish_x = fish.x
-                    fish_y = fish.y
-                    fish.move(self.grid)
-                    baby_fish = fish.reproduce(x = fish_x, y = fish_y)
-                    if baby_fish and self.is_valid_position(x = baby_fish.x, y = baby_fish.y):
-                        self.grid[baby_fish.y][baby_fish.x] = baby_fish
-                        new_fishes.append(baby_fish)
-
-            # Ajout des nouveaux poissons / requins
-            self.sharks.extend(new_sharks)
-            self.fishes.extend(new_fishes)
-
-            # On update pour ne garder que les entités vivantes
-            self.sharks = [shark for shark in self.sharks if shark.alive]
-            self.fishes = [fish for fish in self.fishes if fish.alive]
-
-            self.update() # incrémentation des chronons
-            print(f"Tour n°{self.chronon}")
-            pprint(self.display_planet())
-
-
-            # VERIFICATIONS NBRE REQUINS / POISSONS
-            print(f"Fishes : {len(self.fishes)}")
-            print(f"Sharks : {len(self.sharks)}")
-
-            num_clownfish = 0
-            num_shark = 0
-            for y in range(len(self.grid)):
-                for x in range(len(self.grid[y])):
-                    cell=self.grid[y][x]
-                    if(isinstance(cell,ClownFish)):
-                        num_clownfish += 1
-                    if(isinstance(cell,Shark)):
-                        num_shark += 1
-
-            print("Poissons dans la grille : ", num_clownfish)
-            print("Requins dans la grille : ", num_shark)
-
-
-            for y in range(self.height):
-                for x in range(self.width):
-                    entity = self.grid[y][x]
-                    if isinstance(entity, ClownFish) and entity not in self.fishes:
-                        print(f"🐠 Problème détecté à la position ({y},{x}) : poisson non listé.")
-
-
-            # FIN BOUCLE
-            print("")
-            print("")
-
-            if len(self.sharks) == 0 or self.chronon >= 30:
-                break
+        # Liste prête à accueillir les bébés requins ou poissons
+        new_sharks = []
+        new_fishes = []
+        # On les fait se déplacer, puis on gère leur reproduction
+        for shark in self.sharks:
+            if shark:
+                shark_x = shark.x
+                shark_y = shark.y
+                shark.move(self.grid)
+                # Gestion de la reproduction
+                baby_shark = shark.reproduce(x=shark_x, y=shark_y)
+                if baby_shark and self.is_valid_position(x = baby_shark.x, y = baby_shark.y):
+                    self.grid[baby_shark.y][baby_shark.x] = baby_shark
+                    new_sharks.append(baby_shark)
+                    
+        self.fishes = [fish for fish in self.fishes if fish.alive]
+        for fish in self.fishes:
+            if fish:
+                fish_x = fish.x
+                fish_y = fish.y
+                fish.move(self.grid)
+                baby_fish = fish.reproduce(x = fish_x, y = fish_y)
+                if baby_fish and self.is_valid_position(x = baby_fish.x, y = baby_fish.y):
+                    self.grid[baby_fish.y][baby_fish.x] = baby_fish
+                    new_fishes.append(baby_fish)
+        # Ajout des nouveaux poissons / requins
+        self.sharks.extend(new_sharks)
+        self.fishes.extend(new_fishes)
+        # On update pour ne garder que les entités vivantes
+        self.sharks = [shark for shark in self.sharks if shark.alive]
+        self.fishes = [fish for fish in self.fishes if fish.alive]
+        self.update() # incrémentation des chronons
+        
+        # Simulation par la console :
+        # print(f"Tour n°{self.chronon}")
+        # pprint(self.display_planet())
+        # if len(self.sharks) == 0 or self.chronon >= 30:
+        #     break
