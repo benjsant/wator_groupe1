@@ -1,7 +1,7 @@
 import random
 from entity.fish import Fish
 from entity.clown_fish import ClownFish
-from planet import Planet
+
 
 class Shark(Fish):
     """
@@ -44,28 +44,28 @@ class Shark(Fish):
         for dx, dy in directions:
             new_x = (self.x + dx) % len(grid[0])
             new_y = (self.y + dy) % len(grid)
-            neighbor = grid[new_x][new_y]
+            neighbor = grid[new_y][new_x]
 
             if isinstance(neighbor, ClownFish):
-                grid[new_x][new_y] = " " # pour supprimer le poisson
                 neighbor.alive = False
+                grid[new_y][new_x] = " " # pour supprimer le poisson
                 self.eat()
-                grid[self.x][self.y] = " "
+                grid[self.y][self.x] = " "
                 self.x = new_x
                 self.y = new_y
-                grid[new_x][new_y] = self
-                break
+                grid[new_y][new_x] = self
+                return
         
         for dx, dy in directions:
             new_x = (self.x + dx) % len(grid[0])
             new_y = (self.y + dy) % len(grid)
 
-            if grid[new_x][new_y] == " ":
-                grid[self.x][self.y] = " "
+            if grid[new_y][new_x] == " ":
+                grid[self.y][self.x] = " "
                 self.x = new_x
                 self.y = new_y
-                grid[new_x][new_y] = self
-                break
+                grid[new_y][new_x] = self
+                return
 
         self.is_alive(grid=grid)
         
@@ -89,8 +89,7 @@ class Shark(Fish):
         if self.chronon_shark >= self.SHARK_REPRODUCTION_TIME:
             self.chronon_shark = 0
             return Shark(x = x, y = y)
-        else:
-            return None
+        return None
         
 
     def chronon_shark_one_turn(self):
@@ -109,6 +108,6 @@ class Shark(Fish):
         """
         self.shark_energy -= 1
         if self.shark_energy == 0:
-            grid[self.x][self.y] = " "
+            grid[self.y][self.x] = " "
             self.alive= False
             

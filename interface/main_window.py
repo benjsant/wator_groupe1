@@ -159,6 +159,7 @@ class MainWindow(QMainWindow):
             self.history_window_instance.close()
             
         self.close()
+
 # if __name__ == '__main__':
 #     from planet import Planet
 #     planet = Planet(20,20)
