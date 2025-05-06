@@ -3,7 +3,7 @@
 
 # GRID SETTINGS
 rows = 20
-columns = 20
+columns = 24
 
 # CHRONONS SETTINGS
 max_chronons = 100

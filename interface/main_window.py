@@ -16,7 +16,7 @@ class MainWindow(QMainWindow):
         self.planet = planet
         #definition de la fenetre
         self.setWindowTitle("Wator")
-        self.resize(1200, 800)
+        self.resize(1600, 1200)
         self.isactiveworld=True
         self.history_window=HistoryWindow
         # QTimer pour contrôler le cycle de simulation (Chronon)
