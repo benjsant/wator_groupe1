@@ -8,6 +8,7 @@ import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from entity.shark import Shark
 from entity.clown_fish import ClownFish
+from utils.config import *
 
 class MainWindow(QMainWindow):
     def __init__(self,planet,GridView,Clownfish,Shark,HistoryWindow):
@@ -20,7 +21,7 @@ class MainWindow(QMainWindow):
         self.history_window=HistoryWindow
         # QTimer pour contrôler le cycle de simulation (Chronon)
         self.sim_timer =QTimer(self)
-        self.sim_timer.setInterval(100) #3 sec
+        self.sim_timer.setInterval(cycle_time) # modif dans utils/config.py
         self.sim_timer.timeout.connect(self.update_simulation)
         self.sim_timer.start()
         #timer de la l'application
@@ -116,8 +117,9 @@ class MainWindow(QMainWindow):
         self.timer_label.setText(f'execution time:  {self.start_time.toString("h")}:{self.start_time.toString("m")}:{self.start_time.toString("s")}')
         
     def update_simulation(self)->None:
-
-        if(self.planet.chronon>=100) or (len(self.planet.fishes) ==0) or (len(self.planet.sharks) ==0):
+        
+        # chronons max modifiables dans utils/config.py
+        if(self.planet.chronon>=max_chronons) or (len(self.planet.fishes) ==0) or (len(self.planet.sharks) ==0):
             self.timer.stop()
             return
         
