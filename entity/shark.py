@@ -25,7 +25,7 @@ class Shark(Fish):
     def __init__(self, x, y):
         super().__init__(x, y)
         self.chronon_shark: int = 0
-        self.shark_energy: int = 8
+        self.shark_energy: int = shark_starting_energy # Modifiable dans utils/config.py
         self.alive: bool = True
         
 
