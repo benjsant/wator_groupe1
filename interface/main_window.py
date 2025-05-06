@@ -20,7 +20,7 @@ class MainWindow(QMainWindow):
         self.history_window=HistoryWindow
         # QTimer pour contrôler le cycle de simulation (Chronon)
         self.sim_timer =QTimer(self)
-        self.sim_timer.setInterval(500) #3 sec
+        self.sim_timer.setInterval(100) #3 sec
         self.sim_timer.timeout.connect(self.update_simulation)
         self.sim_timer.start()
         #timer de la l'application
@@ -116,6 +116,11 @@ class MainWindow(QMainWindow):
         self.timer_label.setText(f'execution time:  {self.start_time.toString("h")}:{self.start_time.toString("m")}:{self.start_time.toString("s")}')
         
     def update_simulation(self)->None:
+
+        if(self.planet.chronon>=100) or (len(self.planet.fishes) ==0) or (len(self.planet.sharks) ==0):
+            self.timer.stop()
+            return
+        
         if(self.isactiveworld):
             num_fishclown = 0  # Remise à zéro pour recompter à chaque cycle
             num_shark = 0
