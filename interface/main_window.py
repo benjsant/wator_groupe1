@@ -193,7 +193,7 @@ class MainWindow(QMainWindow):
             self.history_window_instance.resize(self.width() - 150, self.height() - 150 )
             self.history_window_instance.show()
         
-    def quit(self):
+    def quit(self)->None:
         self.history_window_instance= self.history_window()
         if self.history_window_instance.isVisible():
             self.history_window_instance.close()
