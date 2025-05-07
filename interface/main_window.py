@@ -66,7 +66,7 @@ class MainWindow(QMainWindow):
         btn_start_pause.clicked.connect(self.retake)
         
         #boutton quit
-        self.quit_button = QPushButton("quitter", self)
+        self.quit_button = QPushButton("Quitter", self)
         self.quit_button.setFont(QFont('Arial', 16)) 
         self.quit_button.clicked.connect(self.quit)
         
@@ -138,7 +138,7 @@ class MainWindow(QMainWindow):
         """
         self.start_time = self.start_time.addSecs(1)
         self.timer_label.setFont(QFont('Arial', 16))
-        self.timer_label.setText(f'execution time:  {self.start_time.toString("h")}:{self.start_time.toString("m")}:{self.start_time.toString("s")}')
+        self.timer_label.setText(f'Execution time:  {self.start_time.toString("h")}:{self.start_time.toString("m")}:{self.start_time.toString("s")}')
         
     def update_simulation(self)->None:
         """
