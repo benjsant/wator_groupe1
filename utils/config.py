@@ -3,17 +3,18 @@
 
 # GRID SETTINGS
 rows = 20
-columns = 24
+columns = 20
 
 # CHRONONS SETTINGS
 max_chronons = 100
-cycle_time = 5  # milliseconds
+cycle_time = 500  # milliseconds
 
 # FISHES SETTINGS
-number_of_fishes = 40
-fish_reproduction_time = 10
+number_of_fishes = 70
+fish_reproduction_time = 3
 
 # SHARKS SETTINGS
-number_of_sharks = 10
-shark_reproduction_time = 15
-shark_starting_energy = 8
+number_of_sharks = 20
+shark_reproduction_time = 9
+shark_starting_energy = 6
+energy_by_eating = 4
