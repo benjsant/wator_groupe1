@@ -36,11 +36,11 @@ class MainWindow(QMainWindow):
         self.timer.start(1000)  # update every 1 sec
 
         # === Widget central ===
-        central_widget = QWidget()
+        central_widget:QWidget = QWidget()
         self.setCentralWidget(central_widget)
 
         # Layout principal horizontal 
-        main_layout = QHBoxLayout()
+        main_layout:QHBoxLayout = QHBoxLayout()
         central_widget.setLayout(main_layout)
 
         # Gridview (85%) taille de la fenetre
@@ -156,8 +156,8 @@ class MainWindow(QMainWindow):
             return
         
         if(self.isactiveworld):
-            num_fishclown = 0  # Remise à zéro pour recompter à chaque cycle
-            num_shark = 0
+            num_fishclown:int = 0  # Remise à zéro pour recompter à chaque cycle
+            num_shark:int = 0
             
             self.planet.run_simulation()
             #double boucle qui permet de compter le nombre de poisson et de requin

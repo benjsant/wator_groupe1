@@ -12,15 +12,15 @@ class GridView(QWidget):
     Classe gérant l'affichage de la grille et des éléments graphiques.
 
     Hérite de QWidget afin de permettre le dessin personnalisé de la grille
-    et des entités (poissons, requins) via l’événement paintEvent.
+    et des entités (poissons, requins) via l’événement paintEvent
     sur la grille.
     """
     def __init__(self, planet,parent =None):
         super().__init__(parent)
         self.planet=planet
         #Calcul et attibut qui permet de rendre dynamique la taill des cellule et la longueur et largeur de la gridview
-        rows=self.planet.width
-        cols=self.planet.height
+        rows:int=self.planet.width
+        cols:int=self.planet.height
         self.cell_width = 1300 // cols
         self.cell_height = 880 // rows
         self.cell_size = min(self.cell_width, self.cell_height)
@@ -44,11 +44,11 @@ class GridView(QWidget):
             event (QPaintEvent): Événement graphique requis par le système de rendu.
         """
         painter = QPainter(self)
-        emotesize=int(self.cell_size/2)
+        emotesize:int=int(self.cell_size/2)
         painter.setFont(QFont("Arial",emotesize ))
         for x in range(self.planet.width):
             for y in range(self.planet.height):
-                cell_value = self.planet.grid[y][x]
+                cell_value:object|None= self.planet.grid[y][x]
                 
                 #couleur en fonction du contenue
                 if cell_value=="":
@@ -99,7 +99,7 @@ class GridView(QWidget):
         #boucle qui permet la mise a jour des contenue des cellules
         for x in range(self.planet.width):
             for y in range(self.planet.height):
-                cell_value = self.planet.grid[y][x]
+                cell_value:object|None = self.planet.grid[y][x]
                 
                 #couleur en fonction du contenue
                 if cell_value=="":
