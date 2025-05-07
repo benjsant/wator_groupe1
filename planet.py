@@ -13,12 +13,12 @@ class Planet:
             width (int): _description_ la largeur de la liste
             height (int): _description_ la hauteur de la liste
         """
-        self.width=width
-        self.height=height
-        self.grid=self.init_grid()
-        self.chronon=0
-        self.sharks = []
-        self.fishes = []
+        self.width: int = width
+        self.height: int = height
+        self.grid: list = self.init_grid()
+        self.chronon: int = 0
+        self.sharks: list = []
+        self.fishes: list = []
         
     def init_grid(self)->list:
         """_summary_
