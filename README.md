@@ -1,8 +1,9 @@
 # Wator_Groupe1
-une simulation de dynamique de population avec des requins et des poissons codé en python
+![wator_screen](wator_screen.png)
 
 ## Description du projet 
 
+Une simulation de dynamique de population avec des requins et des poissons codés en python.
 Ce projet a été réalisé par [Aurelien](https://github.com/Aurelien-L), [Benjamin](https://github.com/benjsant) et [Sayana](https://github.com/sayana-project) lors de la formation Dev IA chez Simplon HDF-Lille. L'objectif est de créer une simulation (Wa-Tor) utilisant le langage de programmation Python, avec une interface graphique développée en PyQt5.
 
 - Pour en savoir plus sur la simulation Wa-Tor, consultez [cette page Wikipedia](https://en.wikipedia.org/wiki/Wa-Tor).
@@ -21,9 +22,9 @@ Voici l'aborescence du projet pour mieux localiser certains fichiers :
   - **fish.py** : Fichier pour la classe représentant le poisson.
   - **shark.py** : Fichier pour la classe représentant le requin.
   - **clown_fish.py**:Fichier pour la sous-classe de poisson représentant le poisson tropical.  
-- **uils/** : Dossier contenant des utilitaires.
+- **utils/** : Dossier contenant des utilitaires.
   - **config.py** : Fichier de configuration.
-  - **data-management.py**: Fichier pour la gestion de donnée, principalement la sauvegarde des simulations passé .
+  - **data-management.py**: Fichier pour la gestion de donnée, principalement la sauvegarde des simulations passées.
 - **main.py** : Point d'entrée de l'application.
 - **planet.py** : Fichier pour la classe représentant une planète.
 - **README.md** : Documentation du projet.
@@ -76,13 +77,27 @@ Tous les paramètres important de la simulation sont dans le fichier **utils/con
   
 ## **Contributions des membres de l'équipe** 
    
-- **Aurelien**: 
-  - Création Uml 
-  - Création Classe Requin
-  - 
-- **Benjamin**: 
-  - Création Classe Poisson
-  - 
-  - lkl
-- **Sayana**:
-  -  Création interface graphique PyQt5
+- **[Aurelien](https://github.com/Aurelien-L)**: 
+  - Création UML 
+  - Création classe Shark
+  - Modification classe Planet 
+  - Modification classe Fish avec création classe ClownFish
+  - Implémentation logique de déplacement des organismes dans la grille 
+  - Actions de reproduction des entittés et d'alimentation des requins 
+  
+- **[Benjamin](https://github.com/benjsant)**: 
+  - Création dépôt git avec les branches 
+  - Création classe Fish
+  - Création ReadMe et requirements.txt
+  - Création fonctionnement historique 
+  - Soutien debug Aurelien et Sayana 
+  - Création classe HistoryWindow avec son interface graphique 
+  
+- **[Sayana](https://github.com/sayana-project)**:
+  - Création classe Planet 
+  - Création de la grille matricielle
+  - Gestion des chronons dans la classe Planet 
+  - Création classe Grid_view
+  - Création classe MainWindow
+  - Création interface graphique PyQt5
+  
