@@ -157,8 +157,13 @@ class MainWindow(QMainWindow):
             Returns:
                 None
         """
-        self.history_window_instance= self.history_window()
-        self.history_window_instance.show()
+        self.history_window_instance=self.history_window()
+        if self.history_window_instance.isVisible():
+            self.history_window_instance.close()
+        else:
+            self.history_window_instance.move(self.x() + 100, self.y() + 100)
+            self.history_window_instance.resize(830,600)
+            self.history_window_instance.show()
         
     def quitter(self):
         self.history_window_instance= self.history_window()
