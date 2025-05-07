@@ -73,7 +73,7 @@ class Shark(Fish):
        '''
             Lorsque le requin mange, on augmente son énergie
        '''
-       self.shark_energy += 3
+       self.shark_energy += energy_by_eating # modifiable dans utils/config.py
 
 
     def reproduce(self, x, y) -> object|None:  

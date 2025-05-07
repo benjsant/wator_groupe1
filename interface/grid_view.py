@@ -8,10 +8,17 @@ from entity.shark import Shark
 from entity.clown_fish import ClownFish
 
 class GridView(QWidget):
-    def __init__(self, planet,cell_size=40,parent =None):
+    def __init__(self, planet,parent =None):
         super().__init__(parent)
         self.planet =planet
-        self.cell_size= cell_size
+        rows=self.planet.width
+        cols=self.planet.height
+        self.cell_width = 1300 // cols
+        self.cell_height = 880 // rows
+        self.cell_size = min(self.cell_width, self.cell_height)
+
+        self.rows = rows
+        self.cols = cols
         
         self.setMinimumSize(
             self.planet.width * self.cell_size,
@@ -20,7 +27,8 @@ class GridView(QWidget):
                 
     def paintEvent(self, event):
         painter = QPainter(self)
-        painter.setFont(QFont("Arial", self.cell_size-20))
+        emotesize=int(self.cell_size/2)
+        painter.setFont(QFont("Arial",emotesize ))
         for x in range(self.planet.width):
             for y in range(self.planet.height):
                 cell_value = self.planet.grid[y][x]
