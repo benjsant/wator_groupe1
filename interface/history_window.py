@@ -89,8 +89,7 @@ class HistoryWindow(QMainWindow):
                 self.table_widget.setItem(index_data_load, 3,QTableWidgetItem(str(row['Nombre_Poissons'])))
                 self.table_widget.setItem(index_data_load, 4,QTableWidgetItem(str(row['Nombre_Requins'])))
 
-            #Ajustement de la taille après le chargment des données
-            self.adjustSize()
+            self.table_widget.resizeColumnsToContents()
 
         # Si le fichier n'est pas trouvé, un message d'erreur est affiché et le tableau est vidé.
         except FileNotFoundError:
