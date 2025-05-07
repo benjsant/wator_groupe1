@@ -65,10 +65,10 @@ class MainWindow(QMainWindow):
         btn_start_pause.setFont(QFont('Arial', 16)) 
         btn_start_pause.clicked.connect(self.retake)
         
-        #boutton quitter
-        self.quit_button = QPushButton("Quitter", self)
+        #boutton quit
+        self.quit_button = QPushButton("quitter", self)
         self.quit_button.setFont(QFont('Arial', 16)) 
-        self.quit_button.clicked.connect(self.quitter)
+        self.quit_button.clicked.connect(self.quit)
         
         #boutton historique
         self.history_button = QPushButton("Historique", self)
@@ -195,18 +195,8 @@ class MainWindow(QMainWindow):
             self.history_window_instance.move(self.x() + 100, self.y() + 100)
             self.history_window_instance.resize(self.width() - 150, self.height() - 150 )
             self.history_window_instance.show()
-    
-    def quitter(self) -> None :
-        """
-            Quitte la simulation 
-
-            Cette méthode crée une instance de la classe HistoryWindow puis vérifie si l'instance à une fenêtre affiché.  
-            Si la dit instance à une fenêtre affiché alors la fenêtre crée par cette instance est fermé. 
-            Ensuite la méthode ferme la fenêtre principale
-
-            Returns:
-                None
-        """
+        
+    def quit(self)->None:
         self.history_window_instance= self.history_window()
         if self.history_window_instance.isVisible():
             self.history_window_instance.close()
@@ -220,4 +210,4 @@ class MainWindow(QMainWindow):
         Cette méthode appelle la méthode de sortie personnalisée
         pour éviter les erreurs lors de la fermeture avec la croix.
         """
-        self.quitter()
+        self.quit()
