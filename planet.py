@@ -60,7 +60,14 @@ class Planet:
 
 
     def random_init_pos(self, nb_shark: int, nb_fishes: int):
-        # On y ajoute les requins de façon aléatoire (par objet), en vérifiant si la position est valide
+        """
+        Fonction qui positionne les requins et les poissons de façon aléatoire (par objet), 
+        en vérifiant si la position est valide par appel de is_valid_position()
+
+        Args:
+            nb_shark (int): nombre de requins initial
+            nb_fishes (int): nombre de poissons initial
+        """
         for _ in range(nb_shark):
             while True:
                 x = random.randrange(self.width)
@@ -70,7 +77,6 @@ class Planet:
                     self.new_shark(shark)
                     break
 
-        # Même chose avec les poissons
         for _ in range(nb_fishes):
             while True:
                 x = random.randrange(self.width)
@@ -144,11 +150,11 @@ class Planet:
             
 
 
-    """ BOUCLE PRINCIPALE """
     def run_simulation(self) :
         """
             Boucle principale de la simulation.
-            Les requins sont déplacés, priorité vers les poissons pour les manger, tout en gérant leur reproduction.
+            Les requins sont déplacés, avec priorité vers les poissons pour les manger, tout en gérant leur reproduction.
+            On filtre les poissons pour ne garder que ceux qui n'ont pas été mangés.
             Ensuite déplacement des poissons, avec reproduction.
             
         """
@@ -168,7 +174,7 @@ class Planet:
                     self.grid[baby_shark.y][baby_shark.x] = baby_shark
                     new_sharks.append(baby_shark)
                     
-        self.fishes = [fish for fish in self.fishes if fish.alive]
+        self.fishes = [fish for fish in self.fishes if fish.alive] # filtre des poissons encore en vie
         for fish in self.fishes:
             if fish:
                 fish_x = fish.x
@@ -178,10 +184,11 @@ class Planet:
                 if baby_fish and self.is_valid_position(x = baby_fish.x, y = baby_fish.y):
                     self.grid[baby_fish.y][baby_fish.x] = baby_fish
                     new_fishes.append(baby_fish)
-        # Ajout des nouveaux poissons / requins
+        # Ajout des nouveaux poissons / requins dans leurs listes respectives
         self.sharks.extend(new_sharks)
         self.fishes.extend(new_fishes)
         # On update pour ne garder que les entités vivantes
         self.sharks = [shark for shark in self.sharks if shark.alive]
         self.fishes = [fish for fish in self.fishes if fish.alive]
+        # on incrémente les chronons de la simulation
         self.chronon+=1

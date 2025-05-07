@@ -1,5 +1,8 @@
 
 """ MAIN SETTINGS """
+"""
+    Choisissez ici tous les réglages que vous voulez expérimenter lors de la simulation
+"""
 
 # GRID SETTINGS
 rows = 20
