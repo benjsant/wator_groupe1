@@ -91,9 +91,6 @@ class HistoryWindow(QMainWindow):
 
             self.table_widget.resizeColumnsToContents()
 
-
-            # print(je suis un test)
-
         # Si le fichier n'est pas trouvé, un message d'erreur est affiché et le tableau est vidé.
         except FileNotFoundError:
             print(f"Le fichier {CSV_FILE} n'existe pas, Veuillez d'abord exécuter la simulation .")
