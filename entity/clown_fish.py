@@ -4,14 +4,23 @@ import random
 
 
 class ClownFish(Fish):
+    """
+    Classe représentant les poissons-clown
+
+        - REPRODUCTION_TIME : temps de reproduction par défaut des poissons-clowns
+        - chronon_fish : représente le temps qui s'écoule pour le poisson (un chronon = une action)
+        - alive : booléen indiquant si le poisson est vivant ou non
+        - emoji_fish : représentation graphique du poisson-clown
+
+    """    
     
     REPRODUCTION_TIME: int = fish_reproduction_time #Temps de reproduction des poissons. Modification dans utils/config.py 
     emoji_fish: str = "🐠"
 
     def __init__(self,x :int, y :int):
         super().__init__(x, y)
-        self.chronon_fish = 0
-        self.alive:bool = True
+        self.chronon_fish: int = 0
+        self.alive: bool = True
 
     def move(self, grid)->None: 
         """
@@ -29,18 +38,19 @@ class ClownFish(Fish):
         
         self.chronon_fish_one_turn()
 
+        # on définit les 4 directions, puis on les rend aléatoires
         directions=[(0,1), (1,0), (0,-1), (-1, 0)]
         random.shuffle(directions)
 
         for dx, dy in directions:
-            new_x = (self.x + dx) % len(grid[0])
+            new_x = (self.x + dx) % len(grid[0]) # on définit x et y pour la nouvelle position, avec effet de tore
             new_y = (self.y + dy) % len(grid)
 
-            if grid[new_y][new_x] == " ":
-                grid[self.y][self.x] = " "
-                self.x = new_x
+            if grid[new_y][new_x] == " ":  # On vérifie si l'emplacement est libre
+                grid[self.y][self.x] = " " # on supprime le poisson de son emplacement
+                self.x = new_x  # x et y prennent leur nouvelle valeur
                 self.y = new_y
-                grid[new_y][new_x] = self
+                grid[new_y][new_x] = self   # le poisson est positionné sur son nouvel emplacement
                 return
     
 

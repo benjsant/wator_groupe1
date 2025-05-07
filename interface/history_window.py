@@ -54,7 +54,7 @@ class HistoryWindow(QMainWindow):
 
         self.load_history() 
 
-    def load_history(self):
+    def load_history(self) -> None:
         """
             Charge l'historique des simulations à partir d'un fichier CSV.
 

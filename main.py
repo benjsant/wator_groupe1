@@ -9,6 +9,7 @@ import sys
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 
+
 """ SETTINGS """
 """
     Pour changer les valeurs, aller dans utils/config.py
@@ -31,7 +32,7 @@ test_world.random_init_pos(nb_fishes=NB_OF_FISHES, nb_shark=NB_OF_SHARKS)
 
 
 
-""" AFFICHAGE """
+""" DISPLAY """
 
 app = QApplication(sys.argv)
 main = MainWindow(test_world,GridView,ClownFish,Shark,HistoryWindow)

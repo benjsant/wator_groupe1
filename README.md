@@ -33,7 +33,7 @@ Voici l'aborescence du projet pour mieux localiser certains fichiers :
 
 ### Pré-requis et installation 
 
-1. **Cloner le projet** : Pour utiliser l'application, clonez le projet depuis GitHub en [cliquant ici](https://github.com/benjsant/wator_groupe1.git).
+1. **Cloner le projet** : Pour utiliser l'application, téléchargez le Zip du projet depuis GitHub en [cliquant ici](https://github.com/benjsant/wator_groupe1.git).
 
    Vous pouvez également exécuter la commande suivante si vous avez **Git** installé sur votre machine :
 
@@ -41,11 +41,48 @@ Voici l'aborescence du projet pour mieux localiser certains fichiers :
 git clone https://github.com/benjsant/wator_groupe1.git
 ```
 
-2. **Installer Python** : Assurez-vous d'avoir Python 3.13.3 installé sur votre machine. Utilisez un terminal de commande pour lancer la simulation. 
-   
-3. **Installer les dépendances**: Assurez-vous également d'installer les paquets Python suivants avec la commande pip: 
+1. **Installer Python et les dépedances** : Assurez-vous d'avoir Python 3.13 installé sur votre machine puis avec un terminal de commande, installez les dépendances nécessaire avec la commande ci-dessous:  
   
 ```bash
 pip install -r requirements.txt
 ```
 
+2. **Mise en route du programme** : Une fois toutes vous dépendances python installé vous pouvez mettre en route le programme avec la commande suivante: 
+```python
+python main.py 
+```
+Ou vous pouvez lancez l programme dans votre editeur de code, veuillez vous positionnez dans main.py. 
+
+## **Paramètres de la simulation.** 
+Tous les paramètres important de la simulation sont dans le fichier **utils/config.py** nous avons: 
+
+- **Configuration de la grille :**
+  - **rows** : Nombre de lignes de l'interface.
+  - **columns** : Nombre de colonnes de l'interface.
+  
+- **Configuration des chronons(le temps) :**
+  - **max_chronons** : Nombre de chronons max.
+  - **cycle_time** : vitesse en milliseconde du programme (ex: 5000 = 5 secondes).
+  
+- **Configuration des Poissons :**
+  - **number_of_fishes**: Nombre de poisson initialisés dans l'interface. 
+  - **fish_reproduction_time** : Nombre de chronon nécessaire pour créer de nouveaux poissons.
+  
+- **Configuration des Requins :**
+  - **number_of_sharks** : Nombre de requins initialisés dans l'interface.
+  - **shark_reproduction_time** : Nombre de chronon nécessaire pour créer de nouveaux requins.
+  - **shark_starting_energy** : Energie des requins, quand cette valeur est à 0 le requin disparait.
+  - **energy_by_eating**: Energie que recupére un requin en mangeant un poisson.  
+  
+## **Contributions des membres de l'équipe** 
+   
+- **Aurelien**: 
+  - Création Uml 
+  - Création Classe Requin
+  - 
+- **Benjamin**: 
+  - Création Classe Poisson
+  - 
+  - lkl
+- **Sayana**:
+  -  Création interface graphique PyQt5
