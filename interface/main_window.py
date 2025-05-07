@@ -180,20 +180,33 @@ class MainWindow(QMainWindow):
             Cette méthode crée une instance de la classe HistoryWindow et l'affiche.
             Elle est appelée lorsque l'utilisateur clique sur le bouton "Historique".
             La fenêtre d'historique affichera les données de simulation passée chargées à partir
-            du fichier CSV history_wator_groupe1.csv.
+            du fichier CSV: history_wator_groupe1.csv.
 
             Returns:
                 None
         """
         self.history_window_instance=self.history_window()
+
+        #Vérification et suppresion de la fenêtre historique si elle est déja présente
         if self.history_window_instance.isVisible():
             self.history_window_instance.close()
         else:
+            #Configuration de la fenêtre Historique pour suivre la MainWindow  
             self.history_window_instance.move(self.x() + 100, self.y() + 100)
             self.history_window_instance.resize(self.width() - 150, self.height() - 150 )
             self.history_window_instance.show()
-        
-    def quitter(self):
+    
+    def quitter(self) -> None :
+        """
+            Quitte la simulation 
+
+            Cette méthode crée une instance de la classe HistoryWindow puis vérifie si l'instance à une fenêtre affiché.  
+            Si la dit instance à une fenêtre affiché alors la fenêtre crée par cette instance est fermé. 
+            Ensuite la méthode ferme la fenêtre principale
+
+            Returns:
+                None
+        """
         self.history_window_instance= self.history_window()
         if self.history_window_instance.isVisible():
             self.history_window_instance.close()

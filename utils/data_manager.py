@@ -4,12 +4,12 @@ from datetime import datetime
 # Fichier CSV à utiliser
 CSV_FILE="history_wator_groupe1.csv" 
 
-def save_results(chronons, num_fishes, num_sharks) -> None:
+def save_results(chronons :int, num_fishes :int, num_sharks :int) -> None:
     """
-        Sauvegarde les résultats de la simulation dans un fichier CSV.
+        Sauvegarde les résultats de la simulation dans le fichier CSV: history_wator_groupe1.csv.
 
         Cette fonction crée un DataFrame contenant la date, l'heure, le nombre de chronons,
-        le nombre de poissons et le nombre de requins, puis l'enregistre dans un fichier CSV.
+        le nombre de poissons et le nombre de requins, puis l'enregistre dans le fichier CSV.
 
         Args:
             chronons (int): Le nombre de chronons écoulés dans la simulation.
