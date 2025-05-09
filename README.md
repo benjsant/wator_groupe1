@@ -3,17 +3,16 @@
 
 ## Description du projet 
 
-Une simulation de dynamique de population avec des requins et des poissons codés en python.
+Une simulation de dynamique de population avec des requins et des poissons codés en Python.
 Ce projet a été réalisé par [Aurelien](https://github.com/Aurelien-L), [Benjamin](https://github.com/benjsant) et [Sayana](https://github.com/sayana-project) lors de la formation Dev IA chez Simplon HDF-Lille. L'objectif est de créer une simulation (Wa-Tor) utilisant le langage de programmation Python, avec une interface graphique développée en PyQt5.
 
 - Pour en savoir plus sur la simulation Wa-Tor, consultez [cette page Wikipedia](https://en.wikipedia.org/wiki/Wa-Tor).
 
 ## Arborescence du projet 
 
-Voici l'aborescence du projet pour mieux localiser certains fichiers : 
+Voici l'arborescence du projet pour mieux localiser certains fichiers : 
 
 - **interface/** : Dossier contenant les fichiers liés à l'interface utilisateur.
-  - **`__init__.py`** : Fichier d'initialisation du module.
   - **grid_view.py** : Fichier pour la vue de la grille.
   - **main_window.py** : Fichier pour la fenêtre principale de l'application.
   - **history_window.py**: Fichier pour le tableau d'historique des simulations. 
@@ -24,7 +23,7 @@ Voici l'aborescence du projet pour mieux localiser certains fichiers :
   - **clown_fish.py**:Fichier pour la sous-classe de poisson représentant le poisson tropical.  
 - **utils/** : Dossier contenant des utilitaires.
   - **config.py** : Fichier de configuration.
-  - **data-management.py**: Fichier pour la gestion de donnée, principalement la sauvegarde des simulations passées.
+  - **data_manager.py**: Fichier pour la gestion de données, principalement la sauvegarde des simulations passées.
 - **main.py** : Point d'entrée de l'application.
 - **planet.py** : Fichier pour la classe représentant une planète.
 - **README.md** : Documentation du projet.
@@ -42,20 +41,20 @@ Voici l'aborescence du projet pour mieux localiser certains fichiers :
 git clone https://github.com/benjsant/wator_groupe1.git
 ```
 
-1. **Installer Python et les dépedances** : Assurez-vous d'avoir Python 3.13 installé sur votre machine puis avec un terminal de commande, installez les dépendances nécessaire avec la commande ci-dessous:  
+1. **Installer Python et les dépendances** : Assurez-vous d'avoir Python 3.13 installé sur votre machine puis avec un terminal de commande, installez les dépendances nécessaires avec la commande ci-dessous:  
   
 ```bash
 pip install -r requirements.txt
 ```
 
-2. **Mise en route du programme** : Une fois toutes vous dépendances python installé vous pouvez mettre en route le programme avec la commande suivante: 
+2. **Mise en route du programme** : Une fois toutes vos dépendances Python installées vous pouvez mettre en route le programme avec la commande suivante: 
 ```python
 python main.py 
 ```
-Ou vous pouvez lancez l programme dans votre editeur de code, veuillez vous positionnez dans main.py. 
+Ou vous pouvez lancer le programme dans votre éditeur de code, veuillez vous positionner dans main.py. 
 
 ## **Paramètres de la simulation.** 
-Tous les paramètres important de la simulation sont dans le fichier **utils/config.py** nous avons: 
+Tous les paramètres importants de la simulation sont dans le fichier **utils/config.py** nous avons: 
 
 - **Configuration de la grille :**
   - **rows** : Nombre de lignes de l'interface.
@@ -72,8 +71,8 @@ Tous les paramètres important de la simulation sont dans le fichier **utils/con
 - **Configuration des Requins :**
   - **number_of_sharks** : Nombre de requins initialisés dans l'interface.
   - **shark_reproduction_time** : Nombre de chronon nécessaire pour créer de nouveaux requins.
-  - **shark_starting_energy** : Energie des requins, quand cette valeur est à 0 le requin disparait.
-  - **energy_by_eating**: Energie que recupére un requin en mangeant un poisson.  
+  - **shark_starting_energy** : Énergie des requins, quand cette valeur est à 0 le requin disparaît.
+  - **energy_by_eating**: Énergie que récupère un requin en mangeant un poisson.  
   
 ## **Contributions des membres de l'équipe** 
    
@@ -83,21 +82,21 @@ Tous les paramètres important de la simulation sont dans le fichier **utils/con
   - Modification classe Planet 
   - Modification classe Fish avec création classe ClownFish
   - Implémentation logique de déplacement des organismes dans la grille 
-  - Actions de reproduction des entittés et d'alimentation des requins 
+  - Actions de reproduction des entités et d'alimentation des requins 
   
 - **[Benjamin](https://github.com/benjsant)**: 
   - Création dépôt git avec les branches 
   - Création classe Fish
-  - Création ReadMe et requirements.txt
+  - Création README.md et requirements.txt
   - Création fonctionnement historique 
-  - Soutien debug Aurelien et Sayana 
+  - Soutien au debogage Aurelien et Sayana 
   - Création classe HistoryWindow avec son interface graphique 
   
 - **[Sayana](https://github.com/sayana-project)**:
   - Création classe Planet 
   - Création de la grille matricielle
   - Gestion des chronons dans la classe Planet 
-  - Création classe Grid_view
+  - Création classe GridView
   - Création classe MainWindow
   - Création interface graphique PyQt5
   
