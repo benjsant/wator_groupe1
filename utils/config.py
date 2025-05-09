@@ -10,14 +10,14 @@ columns = 20
 
 # CHRONONS SETTINGS
 max_chronons = 100
-cycle_time = 500  # milliseconds
+cycle_time = 250  # milliseconds
 
 # FISHES SETTINGS
-number_of_fishes = 70
-fish_reproduction_time = 3
+number_of_fishes = 80
+fish_reproduction_time = 6
 
 # SHARKS SETTINGS
-number_of_sharks = 20
-shark_reproduction_time = 9
-shark_starting_energy = 6
+number_of_sharks = 25
+shark_reproduction_time = 15
+shark_starting_energy = 8
 energy_by_eating = 4
